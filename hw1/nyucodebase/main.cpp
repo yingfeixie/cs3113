@@ -27,15 +27,15 @@ GLuint LoadTexture(const char *image_path) {
 	return textureID;
 }
 
-void DrawSprite(GLint texture, float x, float y, float rotation,GLfloat *position) {
+void DrawSprite(GLint texture, float x, float y, float rotation) {
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glMatrixMode(GL_MODELVIEW);
-	//glLoadIdentity();
+	glLoadIdentity();
 	glTranslatef(x, y, 0.0);
 	glRotatef(rotation, 0.0, 0.0, 1.0);
-	//GLfloat quad[] = { -0.5f, 0.5f, -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f };
-	glVertexPointer(2, GL_FLOAT, 0, position);
+	GLfloat quad[] = { -0.5f, 0.5f, -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f };
+	glVertexPointer(2, GL_FLOAT, 0,quad);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	GLfloat quadUVs[] = { 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0 };
 	glTexCoordPointer(2, GL_FLOAT, 0, quadUVs);
@@ -58,7 +58,8 @@ int main(int argc, char *argv[])
 	SDL_Event event;
 
 	glViewport(0, 0, 800, 600);
-	glClearColor(0.4f, 0.2f, 0.4f, 1.0f);
+	glClearColor(0.4f, 0.2f, 0.4f, 0.0f);
+	
 	glMatrixMode(GL_PROJECTION);
 	glOrtho(-1.33f, 1.33f, -1.0f, 1.0f, -1.0f, 1.0f);
 	glMatrixMode(GL_MODELVIEW);
@@ -72,28 +73,27 @@ int main(int argc, char *argv[])
 	glColorPointer(3, GL_FLOAT, 0, color1);
 	
 	GLfloat s2[] = { -0.44f, 0.5f, -0.44f, -0.5f, 0.44f, -0.5f, 0.44f, 0.5f };
-	//GLfloat s3[] = { 0.44f, 0.5f, 0.44f, -0.5f, 1.33f, -0.5f, 1.33f, 0.5f };
-	GLfloat s3[] = { -0.44f, 0.5f, -0.44f, -0.5f, 0.44f, -0.5f, 0.44f, 0.5f };
-	float lastTick = 0.0f;
+	GLfloat s3[] = { 0.44f, 0.5f, 0.44f, -0.5f, 1.33f, -0.5f, 1.33f, 0.5f };
+	//GLfloat s3[] = { -0.44f, 0.5f, -0.44f, -0.5f, 0.44f, -0.5f, 0.44f, 0.5f };
+	float lastFrameTicks = 0.0f;
+	float angle = 0.0f;
 	while (!done) {
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_QUIT || event.type == SDL_WINDOWEVENT_CLOSE) {
 				done = true;
 			}
 		}
+		glClear(GL_COLOR_BUFFER_BIT);
 		glEnableClientState(GL_COLOR_ARRAY);
-		DrawSprite(textId1, 0, 0, 0, s1);
+		DrawSprite(textId1, -0.88, 0, 0);
 		glDisableClientState(GL_COLOR_ARRAY);
-		glDisableClientState(GL_VERTEX_ARRAY);
-		DrawSprite(textId2, 0, 0, 0, s2);
-		glDisableClientState(GL_VERTEX_ARRAY);
-		glDis
 		float ticks = (float)SDL_GetTicks() / 1000.f;
-		float elapsed = ticks - lastTick;
-		lastTick = ticks;
-		DrawSprite(textId3, 0.42, 0, 40*elapsed, s3);
+		float elapsed = ticks - lastFrameTicks;
+		lastFrameTicks = ticks;
+		angle += elapsed;
+		DrawSprite(textId2, 0, 0, 0);
 		
-
+		DrawSprite(textId3, 0.88, 0, angle);
 		
 		SDL_GL_SwapWindow(displayWindow);
 	}
