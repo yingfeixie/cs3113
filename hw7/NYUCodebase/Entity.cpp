@@ -11,9 +11,10 @@ Entity::Entity(float x, float y) : x(x) , y(y) {
 	width = 1;
 	height = 1;
 	z = 0;
-	scale_x = 1;
-	scale_y = 1;
+	scale_x = 0.15;
+	scale_y = 0.125;
 	rotation = 0;
+	speed = 0.1;
 }
 
 void Entity::buildMatrix(){
@@ -34,17 +35,19 @@ void Entity::buildMatrix(){
 	translate.m[0][3] = x;
 	translate.m[1][3] = y;
 	translate.m[2][3] = z;
-	matrix =  scale * rotate * translate;
+	Matrix current;
+	current.identity();
+	current.m[0][0] = x;
+	current.m[1][1] = y;
+	current.m[2][2] = z;
+	matrix =    scale * rotate * translate;
 }
 
 void Entity::render() {
 	buildMatrix();
-
-	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
+	matrix.transpose(); // please do tell future students to transpose before multiplying current matrix;
 	glMultMatrixf(matrix.ml);
-	//darw
-	
 	GLfloat quad[] = { -width / 2, height / 2,
 		-width / 2, -height / 2,
 		width / 2, -height / 2,
@@ -52,6 +55,6 @@ void Entity::render() {
 	};
 	glVertexPointer(2, GL_FLOAT, 0, quad);
 	glEnableClientState(GL_VERTEX_ARRAY);
-	glDrawArrays(GL_QUADS,0,4);
+	glDrawArrays(GL_LINE_LOOP,0,4);
 	glPopMatrix();
 }

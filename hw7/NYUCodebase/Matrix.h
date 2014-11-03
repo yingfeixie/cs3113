@@ -27,4 +27,5 @@ public:
 	Matrix inverse();
 	Matrix operator * (const Matrix& m2);
 	Vector operator * (const Vector& v2);
+	void transpose();
 };

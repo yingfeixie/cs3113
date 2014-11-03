@@ -32,7 +32,20 @@ void Matrix::identity() {
 
 	}
 }
+void Matrix::transpose() {
+	Matrix t;
+	for (int i = 0; i < 4; ++i) {
+		for (int j = 0; j < 4; ++j){
+			t.m[i][j] = m[j][i];
+		}
+	}
+	for (int i = 0; i < 4; ++i) {
+		for (int j = 0; j < 4; ++j){
+			m[i][j] = t.m[i][j];
+		}
+	}
 
+}
 Matrix Matrix::inverse() {
 		float m00 = m[0][0], m01 = m[0][1], m02 = m[0][2], m03 = m[0][3];
 		float m10 = m[1][0], m11 = m[1][1], m12 = m[1][2], m13 = m[1][3];
