@@ -10,6 +10,7 @@ public:
 	float x;
 	float y;
 	float z;
+	float ydisp;
 	float scale_x;
 	float scale_y;
 	float width;

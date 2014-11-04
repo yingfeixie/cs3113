@@ -129,4 +129,10 @@ Vector Matrix::operator* (const Vector& v2) {
 	result.z = (m[2][0] * v2.x) + (m[2][1] * v2.y) + (m[2][2] * v2.z) + (m[2][3] * v2.one);
 	result.one = (m[3][0] * v2.x) + (m[3][1] * v2.y) + (m[3][2] * v2.z) + (m[3][3] * v2.one);
 	return result;
-}
+	
+		/*Vector ans;
+		ans.x = m[0][0] * v2.x + m[1][0] * v2.y + m[2][0] * v2.z + m[3][0] * 1.0f;
+		ans.y = m[0][1] * v2.x + m[1][1] * v2.y + m[2][1] * v2.z + m[3][1] * 1.0f;
+		ans.z = m[0][2] * v2.x + m[1][2] * v2.y + m[2][2] * v2.z + m[3][2] * 1.0f;
+		return ans;*/
+	}

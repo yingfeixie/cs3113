@@ -69,9 +69,11 @@ bool Astroid::updateAndRender() {
 
 void Astroid::fixedUpdate() {
 	const Uint8* keys = SDL_GetKeyboardState(NULL);
-	if (keys[SDL_SCANCODE_LEFT]) player.rotation += FIXED_TIMESTEP*player.speed;
-	else if (keys[SDL_SCANCODE_RIGHT]) player.rotation -= FIXED_TIMESTEP*player.speed;
-	if (keys[SDL_SCANCODE_UP]) player.y += FIXED_TIMESTEP;
+	if (keys[SDL_SCANCODE_LEFT]) player.rotation += FIXED_TIMESTEP* 50;
+	else if (keys[SDL_SCANCODE_RIGHT]) player.rotation -= FIXED_TIMESTEP*50;
+	if (keys[SDL_SCANCODE_UP]) player.speed = 0.001;
+	else if (keys[SDL_SCANCODE_DOWN]) player.speed = -0.001;
+	else player.speed = 0;
 
 }
 
