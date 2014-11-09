@@ -18,6 +18,7 @@ public:
 class Matrix {
 public:
 	Matrix();
+
 	union 
 	{
 		float m[4][4];

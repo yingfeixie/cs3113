@@ -1,11 +1,14 @@
 #pragma once
 #include "Matrix.h"
+#include <SDL_opengl.h>
+#include <SDL_image.h>
 
 class Entity {
 public:
 	Entity::Entity();
-	Entity::Entity(float x, float y);
-
+	Entity::Entity(float x, float y,float z);
+	bool checkCollisionX(Entity* entity);
+	bool checkCollisionY(Entity* entity);
 	Matrix matrix;
 	float x;
 	float y;
@@ -17,8 +20,7 @@ public:
 	float height;	
 	float rotation;
 	float speed;
-	float velocity_x;
-	float velocity_y;
+	Vector velocity;
 	float acceleration_x;
 	float acceleration_y;
 	float friction_x;
@@ -30,10 +32,11 @@ public:
 	bool collidedBottom;
 	bool collidedLeft;
 	bool collidedRight;
-
 	bool collidesWith(Entity *entity);
 	void fixedUpdate();
 	void buildMatrix();
 	void render();
-
+	GLuint texture;
+	float u;
+	float v;
 };
