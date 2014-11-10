@@ -6,7 +6,7 @@
 #include <SDL_image.h>
 #define FIXED_TIMESTEP 0.0166666f
 #define MAX_TIMESTEPS 6
-#define ROCKS 4
+#define ROCKS 10
 
 
 class Astroid {
@@ -14,16 +14,19 @@ public:
 	Astroid();
 	~Astroid();
 	std::vector<Entity*> entities;
-	void checkCollision(Entity& entity);
+	void checkCollision();
 	void init();
 	bool updateAndRender();
 	void fixedUpdate();
 	void render();
+	int count = 0;
 	void update(float elapsed);
 	Entity player;
-	void genRocks();
+	void genEntities();
+	void wrapEntities();
 	float lastFrameTicks;
 	float timeLeftOver;
+	GLuint texture;
 	SDL_Window* displayWindow;
 
 };

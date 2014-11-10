@@ -2,7 +2,7 @@
 #include <math.h>
 using namespace std;
 
-Vector::Vector() : x(0), y(0), z(0) {}
+Vector::Vector() : x(0), y(0), z(0),one(1.0f) {}
 
 Vector::Vector(float x, float y, float z) : x(x), y(y), z(z), one(1.0f) {}
 
@@ -24,6 +24,7 @@ Matrix::Matrix() {
 		}
 	}
 }
+
 
 void Matrix::identity() {
 	for (int i = 0; i < 4; ++i) {
