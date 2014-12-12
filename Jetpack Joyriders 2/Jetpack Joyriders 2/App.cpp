@@ -347,6 +347,7 @@ void drawText(int fontTexture, string text, float size, float spacing, float r, 
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glPushMatrix();
 	glLoadIdentity();
 	glTranslatef(x, y, 0);
 	float texture_size = 1.0 / 16.0f;
@@ -376,6 +377,7 @@ void drawText(int fontTexture, string text, float size, float spacing, float r, 
 	glDisable(GL_BLEND);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_COLOR_ARRAY);//gotta disable
+	glPopMatrix();
 }
 
 void App::UpdateandRender(){
@@ -779,6 +781,12 @@ void App::renderGameLevel(){
 	for (int i = 0; i < floor.size(); i++){
 		floor[i]->Render();
 	}
+	string text = "Start";
+	float size = 0.1;
+	float space = 0;
+	float x = 0 - (float)text.size()*size / 2;
+
+	drawText(font, text, size, space, 1, 1, 1, player.x, player.y, 0);
 
 	SDL_GL_SwapWindow(displayWindow);
 }
