@@ -1,0 +1,80 @@
+﻿Build started 12/12/2014 5:07:15 PM.
+     1>Project "C:\Users\acb\Desktop\Game-Programming-Work\Jetpack Joyriders 2\Jetpack Joyriders 2\Jetpack Joyriders 2.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\SDL2_mixer\include /IC:\SDL2\include /IC:\SDL2_image\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt App.cpp
+         App.cpp
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(22): warning C4244: 'return' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(46): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(53): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(54): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(65): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(66): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(151): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(152): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(153): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(187): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(188): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(189): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(192): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(193): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(215): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(216): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(218): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(231): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(232): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(234): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(248): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(250): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(122): warning C4101: 'EVENT' : unreferenced local variable
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(287): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(289): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(291): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(294): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(295): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(296): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(307): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(308): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(309): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(312): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(317): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(324): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(332): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(333): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(342): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(356): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(387): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(390): warning C4305: '-=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(454): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(458): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(528): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(532): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(543): warning C4010: single-line comment contains line-continuation character
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(574): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(590): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(593): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(597): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(603): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(604): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(605): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(606): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(610): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(611): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(613): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(614): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(633): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(723): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(745): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(772): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(776): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\acb\desktop\game-programming-work\jetpack joyriders 2\jetpack joyriders 2\app.cpp(779): warning C4018: '<' : signed/unsigned mismatch
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\acb\Desktop\Game-Programming-Work\Jetpack Joyriders 2\Debug\Jetpack Joyriders 2.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\SDL2\lib\x86 /LIBPATH:C:\SDL2_mixer\lib\x86 /LIBPATH:C:\SDL2_image\lib\x86 SDL2.lib SDL2main.lib SDL2_image.lib OpenGL32.lib SDL2_mixer.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\acb\Desktop\Game-Programming-Work\Jetpack Joyriders 2\Debug\Jetpack Joyriders 2.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\acb\Desktop\Game-Programming-Work\Jetpack Joyriders 2\Debug\Jetpack Joyriders 2.lib" /MACHINE:X86 Debug\App.obj
+         Debug\JJ2App.obj
+         Debug\MatrixEntities.obj
+         Debug\ParticleSystem.obj
+         Jetpack Joyriders 2.vcxproj -> C:\Users\acb\Desktop\Game-Programming-Work\Jetpack Joyriders 2\Debug\Jetpack Joyriders 2.exe
+     1>Done Building Project "C:\Users\acb\Desktop\Game-Programming-Work\Jetpack Joyriders 2\Jetpack Joyriders 2\Jetpack Joyriders 2.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.85
