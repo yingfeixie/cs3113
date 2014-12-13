@@ -84,18 +84,14 @@
     <ClCompile Include="JJ2App.cpp" />
     <ClCompile Include="MatrixEntities.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
+    <ClCompile Include="PerlinNoise.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="MatrixEntities.h" />
     <ClInclude Include="ParticleSystem.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\Knight2.0.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Jetpack Joyriders 2.opensdf" />
+    <ClInclude Include="PerlinNoise.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
