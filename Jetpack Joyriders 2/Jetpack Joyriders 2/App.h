@@ -1,10 +1,10 @@
 #pragma once
 #include"MatrixEntities.h"
 #include"ParticleSystem.h"
-
+#include <SDL_mixer.h>
 #define FIXED_TIMESTEP 0.016667
 #define MAX_TIMESTEP 6
-
+#include "PerlinNoise.h"
 
 class App{
 public:
@@ -41,10 +41,11 @@ public:
 	bool done;
 	enum GameState { STATE_MAIN_MENU,STATE_SETTING, STATE_GAME_LEVEL, STATE_GAME_OVER };
 	int state;
-
-
-
-
+	Mix_Music *music;
+	float perlinValue;
+	float aspect;
+	float animationAValue;
+	float musicVolume;
 	GLuint font;
 	float lastFrameTicks;
 	float elapsed, delay, actualElapsed, timer, timer2;
@@ -80,7 +81,7 @@ public:
 
 	Entity Coins[5];
 	float cointimer[5];
-
+	int coinsCollected;
 
 	const Uint8* keys;
 	SDL_Window* displayWindow;

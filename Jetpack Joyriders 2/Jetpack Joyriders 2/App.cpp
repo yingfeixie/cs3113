@@ -89,6 +89,8 @@ App::App(){
 }
 
 App::~App(){
+	//Mix_FreeChunk(shoot);
+	Mix_FreeMusic(music);
 	SDL_Quit();
 }
 
@@ -118,17 +120,17 @@ bool App::ProcessEvents(){
 }
 
 void App::Init(){
-	//Push attempt succeeded lol ???
+
 	SDL_Event EVENT;
-	currentResolutionX = 800;
-	currentResolutionY = 600;
+	currentResolutionX = 1440;
+	currentResolutionY = 900;
+	aspect = (float)currentResolutionX / currentResolutionY;
 	SDL_Init(SDL_INIT_VIDEO);//Initializes SDL
-	displayWindow = SDL_CreateWindow("App", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL);//Creates the window with OpenGL and the dimensions of the window.
+	displayWindow = SDL_CreateWindow("App", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, currentResolutionX, currentResolutionY, SDL_WINDOW_OPENGL);//Creates the window with OpenGL and the dimensions of the window.
 	SDL_GLContext context = SDL_GL_CreateContext(displayWindow);
 	SDL_GL_MakeCurrent(displayWindow, context);//Make the window appear?
 	glViewport(0, 0, currentResolutionX, currentResolutionY);//The start of using OpenGL with the arguments as the resolution.
 	glMatrixMode(GL_PROJECTION);//Usually ran once and thats it.
-	float aspect = (float)currentResolutionX / currentResolutionY;
 	glOrtho(-aspect, aspect, -1, 1, -1, 1);//The ratio of resolutions
 
 	timeLeftOver = 0.0f;
@@ -180,9 +182,9 @@ void App::Init(){
 	playerParticles.position.x = -.85f;
 	//Wandering background stuff
 	for (int i = 0; i < 4; i++){
-		Snakes[i].textureID = LoadTexture("Knight2.0.png");
-		Snakes[i].spriteCountX = 3;
-		Snakes[i].spriteCountY = 1;
+		Snakes[i].textureID = LoadTexture("characters_3.png");
+		Snakes[i].spriteCountX = 8;
+		Snakes[i].spriteCountY = 4;
 		Snakes[i].index = 24;
 		Snakes[i].height = .15;
 		Snakes[i].width = .15;
@@ -200,8 +202,8 @@ void App::Init(){
 		Entities.push_back(&Snakes[i]);
 	}
 	//Background animation for Snakes
-	for (int i = 0; i <3; i++){
-		saIndex[i] = i;
+	for (int i = 0; i < 4; i++){
+		saIndex[i] = i + 24;
 	}
 	snakescurrentindex = 0;
 	//Bullets
@@ -259,7 +261,7 @@ void App::Init(){
 	//state = STATE_GAME_LEVEL;
 	font = LoadTexture("font1.png");
 	menuColors = vector<float>(2, 0.0);
-	settingColors = vector<float>(4, 0.0);
+	settingColors = vector<float>(5, 0.0);
 	flicker = 0.0f;
 	menuColorIndex = 0;
 	resolutionIndex = 0;
@@ -267,6 +269,13 @@ void App::Init(){
 	settingIndex = 0;
 	done = false;
 	flickerSign = 1;
+	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
+	music = Mix_LoadMUS("music.mp3");
+	Mix_PlayMusic(music, -1);
+	musicVolume = 10;
+	Mix_VolumeMusic(musicVolume);
+	perlinValue = 0;
+	coinsCollected = 0;
 }
 
 void App::fadeIn() {
@@ -384,7 +393,7 @@ void App::UpdateandRender(){
 	//i guess the problem relates to where elapsed is updated and used.i tried putting this block in updateGameLEVEL but didnt work
 	float ticks = (float)SDL_GetTicks() / 1000.0f;
 	elapsed = ticks - lastFrameTicks;
-	float fixedElapsed = elapsed + timeLeftOver;
+	/*float fixedElapsed = elapsed + timeLeftOver;
 	if (fixedElapsed > FIXED_TIMESTEP * MAX_TIMESTEP) {
 		fixedElapsed = FIXED_TIMESTEP * MAX_TIMESTEP;
 	}
@@ -392,12 +401,9 @@ void App::UpdateandRender(){
 		fixedElapsed -= FIXED_TIMESTEP;
 		FixedUpdate();
 	}
-	timeLeftOver = fixedElapsed;
+	timeLeftOver = fixedElapsed;*/
 	//lastFrameTicks = ticks was not used, dont know why???
 	
-
-
-
 	Update();
 
 	Render();
@@ -452,7 +458,7 @@ void App::updateMainMenu(){
 			}
 		}
 	}
-
+	perlinValue += 0.001;
 	flicker += flickerSign *0.001;
 	if (flicker > 1 || flicker < 0) {
 		flickerSign *= -1;
@@ -476,7 +482,7 @@ void App::updateSetting(){
 		if (EVENT.type == SDL_KEYDOWN) {
 			if (EVENT.key.keysym.scancode == SDL_SCANCODE_DOWN) {
 				settingIndex++;
-				if (settingIndex > 3) settingIndex = 3;
+				if (settingIndex > 4) settingIndex = 4;
 			}
 			else if (EVENT.key.keysym.scancode == SDL_SCANCODE_UP) {
 				settingIndex--;
@@ -487,6 +493,10 @@ void App::updateSetting(){
 					resolutionIndex++;
 					if (resolutionIndex > numDisplay - 1) resolutionIndex = numDisplay - 1;
 				}
+				else if (settingIndex == 1){
+					musicVolume--;
+					Mix_VolumeMusic(musicVolume);
+				}
 				else {
 					fullscreen = true;
 				}
@@ -496,12 +506,16 @@ void App::updateSetting(){
 					resolutionIndex--;
 					if (resolutionIndex < 0) resolutionIndex = 0;
 				}
+				else if (settingIndex == 1) {
+					musicVolume++;
+					Mix_VolumeMusic(musicVolume);
+				}
 				else {
 					fullscreen = false;
 				}
 			}
 			else if (EVENT.key.keysym.scancode == SDL_SCANCODE_RETURN ){
-				if (settingIndex == 2) {
+				if (settingIndex == 3) {
 					SDL_DisplayMode mode;
 					SDL_GetDisplayMode(0, resolutionIndex, &mode);
 					if (fullscreen) {
@@ -516,12 +530,16 @@ void App::updateSetting(){
 						SDL_SetWindowSize(displayWindow, mode.w, mode.h);
 						SDL_ShowCursor(1);
 					}
+					cout << mode.w << ' ' << mode.h << endl;
 					currentResolutionX = mode.w;
 					currentResolutionY = mode.h;
-					glViewport(0, 0, mode.w, mode.h);
-					glOrtho(-(float)mode.w / mode.h, (float)mode.w / mode.h, -1.0f, 1.0f, -1.0f, 1.0f);
+					aspect = (float)currentResolutionX / currentResolutionY;
+					glViewport(0, 0, currentResolutionX, currentResolutionY);
+					glMatrixMode(GL_PROJECTION);
+					glLoadIdentity();//have to set identity before setting ortho or the new ortho is set based on previous ortho.
+					glOrtho(-aspect , aspect, -1.0f, 1.0f, -1.0f, 1.0f);					
 				}
-				else if (settingIndex == 3) {
+				else if (settingIndex == 4) {
 					state = STATE_MAIN_MENU;
 				}
 			}
@@ -549,6 +567,19 @@ void App::updateGameLevel(){
 				done = true;;
 		}
 	}
+
+	/*float ticks = (float)SDL_GetTicks() / 1000.0f;
+	elapsed = ticks - lastFrameTicks;*/
+	float fixedElapsed = elapsed + timeLeftOver;
+	if (fixedElapsed > FIXED_TIMESTEP * MAX_TIMESTEP) {
+		fixedElapsed = FIXED_TIMESTEP * MAX_TIMESTEP;
+	}
+	while (fixedElapsed >= FIXED_TIMESTEP) {
+		fixedElapsed -= FIXED_TIMESTEP;
+		FixedUpdate();
+	}
+	timeLeftOver = fixedElapsed;
+	//lastFrameTicks = ticks was not used, dont know why???
 
 
 	actualElapsed = elapsed - delay;
@@ -722,13 +753,19 @@ void App::renderMainMenu(){
 	float space = 0.0f;
 	float x = 0 - (float)text.size()*size / 2;
 	float y = 1.0 / 4;
-	drawText(font, text, size, space, .5, .7, 1, 1, x, 1 - 2 * y);
+	float per = noise1(perlinValue)*0.1 ; 
+	drawText(font, text, size, space, .5, .7, 1, 1, x, 1 - 2 * y+per);
+
+	animationAValue = mapValue(elapsed, 0.0f, 5.0f, 0.0f, 1.0f);
+
 	text = "Start";
 	x = 0 - (float)text.size()*size / 2;
-	drawText(font, text, size, space, menuColors[0], menuColors[0], menuColors[0], menuColors[0], x, 0 - y);
+	float bounce = easeOutElastic(-aspect, x, animationAValue);
+	drawText(font, text, size, space, menuColors[0], menuColors[0], menuColors[0], menuColors[0], bounce, 0 - y);
 	text = "Setting";
 	x = 0 - (float)text.size()*size / 2;
-	drawText(font, text, size, space, menuColors[1], menuColors[1], menuColors[1], menuColors[1], x, 0 - 2 * y);
+	bounce = easeOutElastic(aspect, x, animationAValue);
+	drawText(font, text, size, space, menuColors[1], menuColors[1], menuColors[1], menuColors[1], bounce, 0 - 2 * y);
 	SDL_GL_SwapWindow(displayWindow);
 
 };
@@ -744,18 +781,28 @@ void App::renderSetting(){
 	float size = (float)currentResolutionX / currentResolutionY * 2 / 40;
 	float space = 0.0f;
 	float x = 0 - (float)text.size()*size / 2;
-	float y = 2.0 / 5;
+	float y = 2.0 / 6;
 	drawText(font, text, size, space, settingColors[0], settingColors[0], settingColors[0], 1, x, 1 - y);
+
+	stringstream t;
+	t << "Music Volume: " << musicVolume;
+	text = t.str().c_str();
+	x = 0 - (float)text.size()*size / 2;
+	drawText(font, text, size, space, settingColors[1], settingColors[1], settingColors[1], 1, x, 1 - 2 * y);
+
 	if (fullscreen) text = "Full screen";
 	else text = "Windowed";
 	x = 0 - (float)text.size()*size / 2;
-	drawText(font, text, size, space, settingColors[1], settingColors[1], settingColors[1], 1, x, 1 - 2 * y);
+	drawText(font, text, size, space, settingColors[2], settingColors[2], settingColors[2], 1, x, 1 - 3 * y);
+
 	text = "Confirm";
 	x = 0 - (float)text.size()*size / 2;
-	drawText(font, text, size, space, settingColors[2], settingColors[2], settingColors[2], 1, x, 1 - 3 * y);
+	drawText(font, text, size, space, settingColors[3], settingColors[3], settingColors[3], 1, x, 1 - 4 * y);
+
 	text = "Back";
 	x = 0 - (float)text.size()*size / 2;
-	drawText(font, text, size, space, settingColors[3], settingColors[3], settingColors[3], 1, x, 1 - 4 * y);
+	drawText(font, text, size, space, settingColors[4], settingColors[4], settingColors[4], 1, x, 1 - 5 * y);
+
 	SDL_GL_SwapWindow(displayWindow);
 };
 
@@ -781,12 +828,14 @@ void App::renderGameLevel(){
 	for (int i = 0; i < floor.size(); i++){
 		floor[i]->Render();
 	}
-	string text = "Start";
+	stringstream s;
+	s << "Coins: " << coinsCollected;
+	string text = s.str().c_str();
 	float size = 0.1;
 	float space = 0;
-	float x = 0 - (float)text.size()*size / 2;
+	float x = -aspect;
 
-	drawText(font, text, size, space, 1, 1, 1, player.x, player.y, 0);
+	drawText(font, text, size, space, 1, 1, 1,1 , x+0.1, 1-size/2);
 
 	SDL_GL_SwapWindow(displayWindow);
 }
