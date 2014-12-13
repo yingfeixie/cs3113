@@ -122,8 +122,8 @@ bool App::ProcessEvents(){
 void App::Init(){
 
 	SDL_Event EVENT;
-	currentResolutionX = 1440;
-	currentResolutionY = 900;
+	currentResolutionX = 800;
+	currentResolutionY = 600;
 	aspect = (float)currentResolutionX / currentResolutionY;
 	SDL_Init(SDL_INIT_VIDEO);//Initializes SDL
 	displayWindow = SDL_CreateWindow("App", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, currentResolutionX, currentResolutionY, SDL_WINDOW_OPENGL);//Creates the window with OpenGL and the dimensions of the window.
@@ -145,34 +145,37 @@ void App::Init(){
 	screenShakeValue = 0.0f;
 	gravity_y = -.009f;
 	//Player
-	player.textureID = LoadTexture("characters_3.png");
-	player.spriteCountX = 8;
-	player.spriteCountY = 4;
+	player.textureID = LoadTexture("Dragon.png");
+	player.spriteCountX = 2;
+	player.spriteCountY = 1;
 	player.index = 8;
 	player.x = -.85f;
-	player.y = -.6;
-	player.width = .2;
-	player.height = .2;
+	player.y = -.65;
+	player.width = .5;
+	player.height = .5;
+	player.scale_x = -1;
 	player.rotation = 0;
 	Entities.push_back(&player);
 	//Floor
-	//for (int i = 0; i < 40; i++){
-	//	Ast[i].textureID = SpriteSheetTextureID;
-	//	Ast[i].spriteCountX = 16;
-	//	Ast[i].spriteCountY = 8;
-	//	Ast[i].index = 16 + RANDOM_NUMBER * 3;
-	//	Ast[i].height = .1;
-	//	Ast[i].width = .1;
-	//	Ast[i].x = ((float)i) / 9.9 - 1.67;
-	//	Ast[i].y = -.95;
-	//	Ast[i].rotation = 0;
-	//	Ast[i].velocity_x = -0.005;
-	//	Ast[i].velocity_y = 0;
-	//	floor.push_back(&Ast[i]);
-	//}
+	for (int i = 0; i < 40; i++){
+		Ast[i].textureID = LoadTexture("floor.png");
+		Ast[i].spriteCountX = 1;
+		Ast[i].spriteCountY = 1;
+		Ast[i].index = 0;
+		Ast[i].height = .3;
+		Ast[i].width = .3;
+		Ast[i].scale_y = 1.5;
+		Ast[i].scale_x = 1.2;
+		Ast[i].x = ((float)i) / 9.9 - 1.67;
+		Ast[i].y = -.90;
+		Ast[i].rotation = 0;
+		Ast[i].velocity_x = -0.005;
+		Ast[i].velocity_y = 0;
+		floor.push_back(&Ast[i]);
+	}
 	//Player animation stuff
-	for (int i = 0; i < 4; i++){
-		paIndex1[i] = i + 8;
+	for (int i = 0; i < 2; i++){
+		paIndex1[i] = i;
 	}
 	numFrames = 4;
 	currentindex = 0;
@@ -182,13 +185,13 @@ void App::Init(){
 	playerParticles.position.x = -.85f;
 	//Wandering background stuff
 	for (int i = 0; i < 4; i++){
-		Snakes[i].textureID = LoadTexture("characters_3.png");
-		Snakes[i].spriteCountX = 8;
-		Snakes[i].spriteCountY = 4;
-		Snakes[i].index = 24;
+		Snakes[i].textureID = LoadTexture("Knight2.0.png");
+		Snakes[i].spriteCountX = 3;
+		Snakes[i].spriteCountY = 1;
+		Snakes[i].index = 0;
 		Snakes[i].height = .15;
 		Snakes[i].width = .15;
-		Snakes[i].y = -.825;
+		Snakes[i].y = -.825 -.025*i ;
 		Snakes[i].x = 5;
 		Snakes[i].rotation = 0;
 		Snakes[i].velocity_x = -0.005 + (-.003*RANDOM_NUMBER);
@@ -202,8 +205,8 @@ void App::Init(){
 		Entities.push_back(&Snakes[i]);
 	}
 	//Background animation for Snakes
-	for (int i = 0; i < 4; i++){
-		saIndex[i] = i + 24;
+	for (int i = 0; i < 3; i++){
+		saIndex[i] = i ;
 	}
 	snakescurrentindex = 0;
 	//Bullets
@@ -618,7 +621,7 @@ void App::updateGameLevel(){
 
 		if (Snakes[i].x < -1.5 || (Snakes[i].y < -1.2)){
 			Snakes[i].x = 4 + RANDOM_NUMBER;
-			Snakes[i].y = -.825f;
+			Snakes[i].y = -.825f - .03*RANDOM_NUMBER;
 			Snakes[i].rotation = 0;
 			Snakes[i].velocity_y = .05;
 			if (RANDOM_NUMBER * 2 > 1){
@@ -813,7 +816,9 @@ void App::renderGameLevel(){
 
 	//fadeIn();
 
-
+	for (int i = 0; i < floor.size(); i++){
+		floor[i]->Render();
+	}
 	if (!player.collideBot){
 		playerParticles.Render();
 	}
@@ -825,9 +830,7 @@ void App::renderGameLevel(){
 	for (int i = 0; i < Entities.size(); i++){
 		Entities[i]->Render();
 	}
-	for (int i = 0; i < floor.size(); i++){
-		floor[i]->Render();
-	}
+
 	stringstream s;
 	s << "Coins: " << coinsCollected;
 	string text = s.str().c_str();
