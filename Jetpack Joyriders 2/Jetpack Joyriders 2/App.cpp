@@ -118,7 +118,7 @@ bool App::ProcessEvents(){
 }
 
 void App::Init(){
-	//Push attempt on YING FEI XIE's GIT 123
+	//Push attempt on YING FEI XIE's GIT 165
 	SDL_Event EVENT;
 	currentResolutionX = 800;
 	currentResolutionY = 600;
