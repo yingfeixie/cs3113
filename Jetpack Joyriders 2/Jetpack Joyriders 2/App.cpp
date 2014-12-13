@@ -279,6 +279,11 @@ void App::Init(){
 	Mix_VolumeMusic(musicVolume);
 	perlinValue = 0;
 	coinsCollected = 0;
+
+	//Fire Sprite
+	//fireSprite.textureID = LoadTexture("flame_sprite.png");
+	//fireSprite.visible = false;
+	
 }
 
 void App::fadeIn() {
@@ -345,7 +350,12 @@ void App::FixedUpdate(){
 		Coins[i].rotation += FIXED_TIMESTEP * 2;
 		//Coin Score
 		if (player.checkCollision(Coins[i]) && Coins[i].checkCollision(player)){
+			if (Coins[i].visible){
+				coinsCollected++;
+			}
 			Coins[i].visible = false;
+			
+
 		}
 	}
 
@@ -588,21 +598,19 @@ void App::updateGameLevel(){
 	actualElapsed = elapsed - delay;
 	timer += actualElapsed;
 	timer2 += actualElapsed;
-	//Walking animation
-	if (player.collideBot){
-		if (timer > .2) {
+	//Walking animation		
+	if (timer > .2) {
 			currentindex++;
 			timer = 0.0;
 			if (currentindex > numFrames - 1) {
 				currentindex = 0;
 			}
 		}
-		player.index = paIndex1[currentindex];
-	}
-	else{
-		player.index = 13;
-		playerParticles.position.y = player.y - .1f;
+	player.index = paIndex1[currentindex];
 
+	if (!player.collideBot){
+		playerParticles.position.y = player.y -.05;
+		playerParticles.position.x = player.x - 0.02;
 	}
 	//Snake movement, death, and respawn.
 	for (int i = 0; i < 6; i++){
@@ -621,7 +629,7 @@ void App::updateGameLevel(){
 
 		if (Snakes[i].x < -1.5 || (Snakes[i].y < -1.2)){
 			Snakes[i].x = 4 + RANDOM_NUMBER;
-			Snakes[i].y = -.825f - .03*RANDOM_NUMBER;
+			Snakes[i].y = -.825f - .12*RANDOM_NUMBER;
 			Snakes[i].rotation = 0;
 			Snakes[i].velocity_y = .05;
 			if (RANDOM_NUMBER * 2 > 1){

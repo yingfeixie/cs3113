@@ -65,6 +65,8 @@ public:
 	Entity Ast[40];
 	Entity Snakes[4];
 
+	Entity fireSprite;
+
 	int saIndex[4];
 	int snakescurrentindex;
 
