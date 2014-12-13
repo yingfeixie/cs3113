@@ -145,14 +145,14 @@ void App::Init(){
 	screenShakeValue = 0.0f;
 	gravity_y = -.009f;
 	//Player
-	player.textureID = LoadTexture("Dragon.png");
+	player.textureID = LoadTexture("Dragon2.png");
 	player.spriteCountX = 2;
 	player.spriteCountY = 1;
 	player.index = 8;
 	player.x = -.85f;
 	player.y = -.65;
-	player.width = .5;
-	player.height = .5;
+	player.width = .4;
+	player.height = .4;
 	player.scale_x = -1;
 	player.rotation = 0;
 	Entities.push_back(&player);
@@ -166,7 +166,7 @@ void App::Init(){
 		Ast[i].width = .3;
 		Ast[i].scale_y = 1.5;
 		Ast[i].scale_x = 1.2;
-		Ast[i].x = ((float)i) / 9.9 - 1.67;
+		Ast[i].x = ((float)i) / 9.9 - 1.75;
 		Ast[i].y = -.90;
 		Ast[i].rotation = 0;
 		Ast[i].velocity_x = -0.005;
@@ -236,7 +236,7 @@ void App::Init(){
 		bulletindicators[i].height = .075;
 		bulletindicators[i].width = .075;
 		bulletindicators[i].set_y = -1+2*RANDOM_NUMBER;
-		bulletindicators[i].x = 1.27;
+		bulletindicators[i].x = aspect - 0.06;
 		bulletindicators[i].rotation = 0;
 		bulletindicators[i].collideTop = false;
 		bulletmech.push_back(&bulletindicators[i]);
@@ -671,7 +671,7 @@ void App::updateGameLevel(){
 			else
 			{
 				bullettimers[i] = 0;
-				bullets[i].x = 2;
+				bullets[i].x = 2.5;
 				bullets[i].y = bulletindicators[i].set_y;
 				bulletindicators[i].collideTop = false;
 				bullets[i].velocity_x = -0.04;
