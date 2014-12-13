@@ -91,6 +91,12 @@
     <ClInclude Include="MatrixEntities.h" />
     <ClInclude Include="ParticleSystem.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Knight2.0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Jetpack Joyriders 2.opensdf" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

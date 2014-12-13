@@ -118,7 +118,7 @@ bool App::ProcessEvents(){
 }
 
 void App::Init(){
-
+	//Push attempt on YING FEI XIE's GIT 123
 	SDL_Event EVENT;
 	currentResolutionX = 800;
 	currentResolutionY = 600;
@@ -180,9 +180,9 @@ void App::Init(){
 	playerParticles.position.x = -.85f;
 	//Wandering background stuff
 	for (int i = 0; i < 4; i++){
-		Snakes[i].textureID = LoadTexture("characters_3.png");
-		Snakes[i].spriteCountX = 8;
-		Snakes[i].spriteCountY = 4;
+		Snakes[i].textureID = LoadTexture("Knight2.0.png");
+		Snakes[i].spriteCountX = 3;
+		Snakes[i].spriteCountY = 1;
 		Snakes[i].index = 24;
 		Snakes[i].height = .15;
 		Snakes[i].width = .15;
@@ -200,8 +200,8 @@ void App::Init(){
 		Entities.push_back(&Snakes[i]);
 	}
 	//Background animation for Snakes
-	for (int i = 0; i < 4; i++){
-		saIndex[i] = i + 24;
+	for (int i = 0; i <3; i++){
+		saIndex[i] = i;
 	}
 	snakescurrentindex = 0;
 	//Bullets
