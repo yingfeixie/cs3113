@@ -64,9 +64,9 @@ public:
 
 	Entity Ast[40];
 	Entity Snakes[4];
-
+	Entity Background[4];
 	Entity fireSprite;
-
+	Entity Unicorns[3];
 	int saIndex[4];
 	int snakescurrentindex;
 

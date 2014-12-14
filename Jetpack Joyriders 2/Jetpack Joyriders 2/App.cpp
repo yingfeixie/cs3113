@@ -280,10 +280,29 @@ void App::Init(){
 	perlinValue = 0;
 	coinsCollected = 0;
 
-	//Fire Sprite
-	//fireSprite.textureID = LoadTexture("flame_sprite.png");
-	//fireSprite.visible = false;
+	//Background
+	Background[0].textureID = LoadTexture("DarkCloudy.png");
+	Background[0].x = 0;
+	Background[0].y = 0;
+	Background[0].spriteCountX = 1;
+	Background[0].spriteCountY = 1;
+	Background[0].index = 0;
+	Background[0].height = 2;
+	Background[0].width = 2.66;
+	for (int i = 1; i < 4; i++){
+		Background[i].textureID = LoadTexture("Hills.png");
+		Background[i].x = 0 + 2.657*(i-1);
+		Background[i].y = -.5;
+		Background[i].spriteCountX = 1;
+		Background[i].spriteCountY = 1;
+		Background[i].index = 0;
+		Background[i].height = 1;
+		Background[i].width = 2.66;
+		Background[i].set_x = -.0075f;
+	}
 	
+	
+
 }
 
 void App::fadeIn() {
@@ -732,7 +751,15 @@ void App::updateGameLevel(){
 		}
 
 	}
+	//Background move
+	for (int i = 1; i < 4; i++){
 
+		Background[i].x += Background[i].set_x*FIXED_TIMESTEP;
+
+		if (Background[i].x < -3.99){
+			Background[i].x = 5.32;
+		}
+	}
 
 	delay = elapsed;
 }
@@ -823,7 +850,9 @@ void App::renderGameLevel(){
 	glClear(GL_COLOR_BUFFER_BIT);//Makes background default color
 
 	//fadeIn();
-
+	for (int i = 0; i < 4; i++){
+		Background[i].Render();
+	}
 	for (int i = 0; i < floor.size(); i++){
 		floor[i]->Render();
 	}
