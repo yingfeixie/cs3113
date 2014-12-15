@@ -66,7 +66,10 @@ public:
 	Entity Snakes[4];
 	Entity Background[4];
 	Entity fireSprite;
-	Entity Unicorns[3];
+	Entity Unicorns[4];
+	float unitimer[4];
+
+
 	int saIndex[4];
 	int snakescurrentindex;
 

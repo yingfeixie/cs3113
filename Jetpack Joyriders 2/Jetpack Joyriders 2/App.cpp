@@ -293,6 +293,8 @@ void App::Init(){
 		Background[i].textureID = LoadTexture("Hills.png");
 		Background[i].x = 0 + 2.657*(i-1);
 		Background[i].y = -.5;
+		Background[i].scale_x = 1;
+		Background[i].scale_y = 1;
 		Background[i].spriteCountX = 1;
 		Background[i].spriteCountY = 1;
 		Background[i].index = 0;
@@ -301,7 +303,20 @@ void App::Init(){
 		Background[i].set_x = -.0075f;
 	}
 	
-	
+	for (int i = 0; i < 4; i++){
+		Unicorns[i].textureID = LoadTexture("Unicorn2.png");
+		Unicorns[i].x = 0;
+		Unicorns[i].y = RANDOM_NUMBER;
+		Unicorns[i].spriteCountX = 2;
+		Unicorns[i].spriteCountY = 1;
+		Unicorns[i].index = 0;
+		Unicorns[i].height = .2;
+		Unicorns[i].width = .2;
+		Unicorns[i].velocity_x = -.01;
+		Unicorns[i].set_x = -RANDOM_NUMBER * 100;
+		Entities.push_back(&Unicorns[i]);
+		unitimer[i] = 0;
+	}
 
 }
 
@@ -336,6 +351,12 @@ void App::FixedUpdate(){
 	}
 	for (int i = 0; i < 8; i++){
 		if (player.checkCollision(bullets[i]) && bullets[i].checkCollision(player)){
+			player.collideLeft = true;
+		}
+	}
+
+	for (int i = 0; i < 4; i++){
+		if (player.checkCollision(Unicorns[i]) && Unicorns[i].checkCollision(player)){
 			player.collideLeft = true;
 		}
 	}
@@ -592,11 +613,11 @@ void App::updateSetting(){
 void App::updateGameLevel(){
 
 	//Update() is changed to updateGameLevel(),definition not changed. but not working properly\
-			have to figure out where to put fixedupdate in .
+				have to figure out where to put fixedupdate in .
 	//do a poll event to check quit and input.
 	while (SDL_PollEvent(&EVENT)) {
 		if (EVENT.type == SDL_QUIT || EVENT.type == SDL_WINDOWEVENT_CLOSE) {
-				done = true;;
+			done = true;;
 		}
 	}
 
@@ -617,6 +638,7 @@ void App::updateGameLevel(){
 	actualElapsed = elapsed - delay;
 	timer += actualElapsed;
 	timer2 += actualElapsed;
+
 	//Walking animation		
 	if (keys[SDL_SCANCODE_UP]){
 		if (timer > .2) {
@@ -629,7 +651,7 @@ void App::updateGameLevel(){
 		player.index = paIndex1[currentindex];
 	}
 	if (!player.collideBot){
-		playerParticles.position.y = player.y -.05;
+		playerParticles.position.y = player.y - .05;
 		playerParticles.position.x = player.x - 0.02;
 	}
 	//Snake movement, death, and respawn.
@@ -754,13 +776,31 @@ void App::updateGameLevel(){
 	}
 	//Background move
 	for (int i = 1; i < 4; i++){
-		Background[i].set_x += (-.0001*actualElapsed); 
+		Background[i].set_x += (-.0001*actualElapsed);
 		Background[i].x += Background[i].set_x*FIXED_TIMESTEP;
 
-		if (Background[i].x < -3.99){
-			Background[i].x = 3.98;
+		if ((Background[i].x +Background[i].width/2) < -1.33){
+			Background[i].x = 5.32;
 		}
 	}
+	//Unicorn Motion and Animation
+	for (int i = 0; i < 4; i++){
+		unitimer[i] += actualElapsed;
+		if (unitimer[i] > .35){
+			unitimer[i] = 0;
+			Unicorns[i].index++;
+			if (Unicorns[i].index > 1){
+				Unicorns[i].index = 0;
+			}
+		}
+
+	}
+
+	
+
+
+
+
 
 	delay = elapsed;
 }
