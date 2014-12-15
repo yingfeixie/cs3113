@@ -618,15 +618,16 @@ void App::updateGameLevel(){
 	timer += actualElapsed;
 	timer2 += actualElapsed;
 	//Walking animation		
-	if (timer > .2) {
+	if (keys[SDL_SCANCODE_UP]){
+		if (timer > .2) {
 			currentindex++;
 			timer = 0.0;
 			if (currentindex > numFrames - 1) {
 				currentindex = 0;
 			}
 		}
-	player.index = paIndex1[currentindex];
-
+		player.index = paIndex1[currentindex];
+	}
 	if (!player.collideBot){
 		playerParticles.position.y = player.y -.05;
 		playerParticles.position.x = player.x - 0.02;
@@ -753,11 +754,11 @@ void App::updateGameLevel(){
 	}
 	//Background move
 	for (int i = 1; i < 4; i++){
-
+		Background[i].set_x += (-.0001*actualElapsed); 
 		Background[i].x += Background[i].set_x*FIXED_TIMESTEP;
 
 		if (Background[i].x < -3.99){
-			Background[i].x = 5.32;
+			Background[i].x = 3.98;
 		}
 	}
 
