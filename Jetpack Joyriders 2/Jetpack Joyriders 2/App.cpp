@@ -262,7 +262,7 @@ void App::Init(){
 	//if directly set state = STATE_GAME_LEVEL, the game runs fine.
 	state = STATE_MAIN_MENU;
 	//state = STATE_GAME_LEVEL;
-	font = LoadTexture("font1.png");
+	font = LoadTexture("font2.png");
 	menuColors = vector<float>(2, 0.0);
 	settingColors = vector<float>(5, 0.0);
 	flicker = 0.0f;
@@ -406,7 +406,7 @@ void App::FixedUpdate(){
 
 
 
-	player.velocity_y = lerp(player.velocity_y, 0.0f, FIXED_TIMESTEP*0.5f);
+	player.velocity_y = lerp(player.velocity_y, 0.0f, FIXED_TIMESTEP*.1);
 	for (int i = 0; i < 4; i++) {
 		if (Unicorns[i].x < -1.5 * aspect){
 			Unicorns[i].x =  aspect;
