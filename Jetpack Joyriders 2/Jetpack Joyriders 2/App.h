@@ -49,7 +49,12 @@ public:
 	GLuint font;
 	float lastFrameTicks;
 	float elapsed, delay, actualElapsed, timer, timer2;
-
+	GLuint hillID;
+	void drawBg();
+	float bgv;
+	float bgu;
+	float uniSpawnCounter;
+	bool spawnUni;
 	GLuint SpriteSheetTextureID;
 
 	vector<Entity*> Entities;
