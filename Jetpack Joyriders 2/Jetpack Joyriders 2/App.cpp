@@ -288,10 +288,14 @@ void App::Init(){
 	Background[0].spriteCountY = 1;
 	Background[0].index = 0;
 	Background[0].height = 2;
-	Background[0].width = 2.66;
-	for (int i = 1; i < 4; i++){
-		Background[i].textureID = LoadTexture("Hills.png");
-		Background[i].x = 0 + 2.657*(i-1);
+	Background[0].width = 2*aspect;
+
+	hillID = LoadTexture("Hills.png");
+	bgu = 0;
+	bgv = 0;
+	for (int i = 1; i < 2; i++){
+		Background[i].textureID = hillID;
+		Background[i].x = 0 + 2*aspect * (i-1);
 		Background[i].y = -.5;
 		Background[i].scale_x = 1;
 		Background[i].scale_y = 1;
@@ -299,7 +303,7 @@ void App::Init(){
 		Background[i].spriteCountY = 1;
 		Background[i].index = 0;
 		Background[i].height = 1;
-		Background[i].width = 2.66;
+		Background[i].width = aspect;
 		Background[i].set_x = -.0075f;
 	}
 	
@@ -317,7 +321,8 @@ void App::Init(){
 		Entities.push_back(&Unicorns[i]);
 		unitimer[i] = 0;
 	}
-
+	uniSpawnCounter = 0;
+	spawnUni = 0;
 }
 
 void App::fadeIn() {
@@ -402,6 +407,32 @@ void App::FixedUpdate(){
 
 
 	player.velocity_y = lerp(player.velocity_y, 0.0f, FIXED_TIMESTEP*0.5f);
+	for (int i = 0; i < 4; i++) {
+		if (Unicorns[i].x < -1.5 * aspect){
+			Unicorns[i].x =  aspect;
+			Unicorns[i].y = 0.75;
+			uniSpawnCounter = 0;
+		}
+		float py = player.y;
+		if (Unicorns[i].x - player.x > 1.0 / 4 * aspect) {
+			/*if (player.y >= Unicorns[i].y) {
+				Unicorns[i].acceleration_y = 0.01*FIXED_TIMESTEP*aspect;
+			}
+			else {
+				Unicorns[i].acceleration_y = -0.01*FIXED_TIMESTEP*aspect;
+			}*/
+			Unicorns[i].y = easeOut(aspect, py, uniSpawnCounter);
+		}
+		/*else {
+			Unicorns[i].y = easeOut(aspect, player.y, uniSpawnCounter);
+		}*/
+		
+
+		Unicorns[i].velocity_y += Unicorns[i].acceleration_y * FIXED_TIMESTEP;
+		//Unicorns[i].y += Unicorns[i].velocity_y * FIXED_TIMESTEP;
+	}
+	
+	
 }
 
 void drawText(int fontTexture, string text, float size, float spacing, float r, float g, float b, float a, float x, float y) {
@@ -544,6 +575,7 @@ void App::updateSetting(){
 			else if (EVENT.key.keysym.scancode == SDL_SCANCODE_LEFT) {
 				if (settingIndex == 0) {
 					resolutionIndex++;
+					resolutionIndex++;
 					if (resolutionIndex > numDisplay - 1) resolutionIndex = numDisplay - 1;
 				}
 				else if (settingIndex == 1){
@@ -556,6 +588,7 @@ void App::updateSetting(){
 			}
 			else if (EVENT.key.keysym.scancode == SDL_SCANCODE_RIGHT) {
 				if (settingIndex == 0) {
+					resolutionIndex--;
 					resolutionIndex--;
 					if (resolutionIndex < 0) resolutionIndex = 0;
 				}
@@ -583,14 +616,23 @@ void App::updateSetting(){
 						SDL_SetWindowSize(displayWindow, mode.w, mode.h);
 						SDL_ShowCursor(1);
 					}
-					cout << mode.w << ' ' << mode.h << endl;
 					currentResolutionX = mode.w;
 					currentResolutionY = mode.h;
 					aspect = (float)currentResolutionX / currentResolutionY;
 					glViewport(0, 0, currentResolutionX, currentResolutionY);
 					glMatrixMode(GL_PROJECTION);
 					glLoadIdentity();//have to set identity before setting ortho or the new ortho is set based on previous ortho.
-					glOrtho(-aspect , aspect, -1.0f, 1.0f, -1.0f, 1.0f);					
+					glOrtho(-aspect , aspect, -1.0f, 1.0f, -1.0f, 1.0f);
+					Background[0].width = 2 * aspect;
+					for (int i = 1; i < 2; i++){
+						Background[i].x = 0 + 2 * aspect * (i - 1);
+						Background[i].width = 2 * aspect;
+					}
+					for (int i = 0; i < totalbullets; i++){
+						bulletindicators[i].x = aspect - 0.06/1.33*aspect;
+
+					}
+					Background[1].width = aspect;
 				}
 				else if (settingIndex == 4) {
 					state = STATE_MAIN_MENU;
@@ -775,15 +817,22 @@ void App::updateGameLevel(){
 
 	}
 	//Background move
-	for (int i = 1; i < 4; i++){
-		Background[i].set_x += (-.0001*actualElapsed);
-		Background[i].x += Background[i].set_x*FIXED_TIMESTEP;
+	//for (int i = 1; i < 4; i++){
+	Background[1].set_x += (-.0001*actualElapsed);
+	//	Background[i].x += Background[i].set_x*FIXED_TIMESTEP*10;
+	//	//cout << Background[i].set_x << endl;
+	//	cout << Background[i].x << endl;
+	//	/*if ((Background[i].x +Background[i].width/2) < -aspect*2){
+	//		cout << Background[i].x + Background[i].width / 2 << endl;
+	//		Background[i].x = 4 * aspect;
 
-		if ((Background[i].x +Background[i].width/2) < -1.33){
-			Background[i].x = 5.32;
-		}
-	}
+	//	}*/
+	//}
+
+	bgu -= Background[1].set_x * FIXED_TIMESTEP;
+
 	//Unicorn Motion and Animation
+
 	for (int i = 0; i < 4; i++){
 		unitimer[i] += actualElapsed;
 		if (unitimer[i] > .35){
@@ -793,14 +842,10 @@ void App::updateGameLevel(){
 				Unicorns[i].index = 0;
 			}
 		}
-
 	}
-
-	
-
-
-
-
+	//added unicorn spawn and movement in fixed update
+	uniSpawnCounter += actualElapsed;
+	if (uniSpawnCounter > 2.0) spawnUni = true;
 
 	delay = elapsed;
 }
@@ -885,15 +930,47 @@ void App::renderSetting(){
 	SDL_GL_SwapWindow(displayWindow);
 };
 
+void App::drawBg() {
+	glPushMatrix();
+	glLoadIdentity();
+
+
+	GLfloat quad[] = { -aspect, 0,
+		-aspect, -1,
+		aspect, -1,
+		aspect, 0 };
+	glVertexPointer(2, GL_FLOAT, 0, quad);
+	glEnableClientState(GL_VERTEX_ARRAY);
+
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, hillID);
+	GLfloat quadUVs[] = {bgu, bgv,
+		bgu, bgv + Background[1].height,
+		bgu + Background[1].width, bgv + Background[1].height,
+		bgu + Background[1].width, bgv };
+
+	glTexCoordPointer(2, GL_FLOAT, 0, quadUVs);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glDrawArrays(GL_QUADS, 0, 4);
+	glPopMatrix();
+}
 void App::renderGameLevel(){
 	//render changed to renderGameLEvel
 	glClearColor(55.0f / 255.0f, 84.0f / 255.0f, 229.0f / 255.0f, 1.0f);//Determines default coloring
 	glClear(GL_COLOR_BUFFER_BIT);//Makes background default color
 
 	//fadeIn();
-	for (int i = 0; i < 4; i++){
-		Background[i].Render();
+	for (int i = 0; i < 1; i++){
+		Background[0].Render();
 	}
+
+	drawBg();
+
 	for (int i = 0; i < floor.size(); i++){
 		floor[i]->Render();
 	}
@@ -916,7 +993,7 @@ void App::renderGameLevel(){
 	float space = 0;
 	float x = -aspect;
 
-	drawText(font, text, size, space, 1, 1, 1,1 , x+0.1, 1-size/2);
+	drawText(font, text, size, space, 1, 1, 1,1 , x+0.1, 1-size);
 
 	SDL_GL_SwapWindow(displayWindow);
 }
