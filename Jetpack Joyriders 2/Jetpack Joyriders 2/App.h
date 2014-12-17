@@ -48,7 +48,7 @@ public:
 	float musicVolume;
 	GLuint font;
 	float lastFrameTicks;
-	float elapsed, delay, actualElapsed, timer, timer2;
+	float elapsed, delay, actualElapsed, timer, timer2,timer3;
 	GLuint hillID;
 	void drawBg();
 	float bgv;
@@ -59,13 +59,16 @@ public:
 
 	vector<Entity*> Entities;
 	vector<Entity*> floor;
+
 	Entity player;
+	Entity player2;
 
 	int paIndex1[4];
 	int numFrames;
 	int currentindex;
 
 	ParticleEmitter playerParticles;
+	ParticleEmitter player2Particles;
 
 	Entity Ast[40];
 	Entity Snakes[4];

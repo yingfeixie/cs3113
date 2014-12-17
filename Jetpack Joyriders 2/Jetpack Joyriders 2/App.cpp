@@ -144,7 +144,7 @@ void App::Init(){
 	elapsed = 0;
 	screenShakeValue = 0.0f;
 	gravity_y = -.009f;
-	//Player
+	//Players
 	player.textureID = LoadTexture("Dragon2.png");
 	player.spriteCountX = 2;
 	player.spriteCountY = 1;
@@ -156,6 +156,19 @@ void App::Init(){
 	player.scale_x = -1;
 	player.rotation = 0;
 	Entities.push_back(&player);
+	//2
+	player2.textureID = LoadTexture("Dragon3.png");
+	player2.spriteCountX = 2;
+	player2.spriteCountY = 1;
+	player2.index = 8;
+	player2.x = -.85f;
+	player2.y = -.65;
+	player2.width = .4;
+	player2.height = .4;
+	player2.scale_x = -1;
+	player2.rotation = 0;
+	Entities.push_back(&player2);
+
 	//Floor
 	for (int i = 0; i < 40; i++){
 		Ast[i].textureID = LoadTexture("floor.png");
@@ -173,14 +186,10 @@ void App::Init(){
 		Ast[i].velocity_y = 0;
 		floor.push_back(&Ast[i]);
 	}
-	//Player animation stuff
-	for (int i = 0; i < 2; i++){
-		paIndex1[i] = i;
-	}
-	numFrames = 4;
-	currentindex = 0;
 	//Particle Emitter Stuff
 	ParticleEmitter temp(25);
+	player2Particles = temp;
+	player2Particles.position.x = -.85f;
 	playerParticles = temp;
 	playerParticles.position.x = -.85f;
 	//Wandering background stuff
@@ -353,16 +362,25 @@ void App::FixedUpdate(){
 		if (Entities[i]->checkCollision(player) && player.checkCollision(*Entities[i])){
 			Entities[i]->collideLeft = true;
 		}
+		if (Entities[i]->checkCollision(player2) && player2.checkCollision(*Entities[i])){
+			Entities[i]->collideLeft = true;
+		}
 	}
 	for (int i = 0; i < 8; i++){
 		if (player.checkCollision(bullets[i]) && bullets[i].checkCollision(player)){
 			player.collideLeft = true;
+		}
+		if (player2.checkCollision(bullets[i]) && bullets[i].checkCollision(player2)){
+			player2.collideLeft = true;
 		}
 	}
 
 	for (int i = 0; i < 4; i++){
 		if (player.checkCollision(Unicorns[i]) && Unicorns[i].checkCollision(player)){
 			player.collideLeft = true;
+		}
+		if (player2.checkCollision(Unicorns[i]) && Unicorns[i].checkCollision(player)){
+			player2.collideLeft = true;
 		}
 	}
 
@@ -380,6 +398,20 @@ void App::FixedUpdate(){
 		player.collideTop = true;
 		player.velocity_y = 0;
 	}
+	player2.velocity_y += player2.acceleration_y*FIXED_TIMESTEP;
+	player2.velocity_y += gravity_y*FIXED_TIMESTEP;
+	player2.y += player2.velocity_y*FIXED_TIMESTEP;
+	player2.acceleration_y = 0;
+	if (player2.y < -.8){
+		player2.y = -.8;
+		player2.collideBot = true;
+		player2.velocity_y = 0;
+	}
+	if (player2.y > .95){
+		player2.y = .95;
+		player2.collideTop = true;
+		player2.velocity_y = 0;
+	}
 	keys = SDL_GetKeyboardState(NULL);
 
 	if (keys[SDL_SCANCODE_UP]){
@@ -388,6 +420,14 @@ void App::FixedUpdate(){
 	if (player.collideLeft){
 		//cout << "you're dead!" << endl;
 	}
+
+	if (keys[SDL_SCANCODE_W]){
+		player2.acceleration_y = 0.9f*FIXED_TIMESTEP;// Computers too laggy to run it as it's suppose to.
+	}
+	if (player2.collideLeft){
+		//cout << "you're dead!" << endl;
+	}
+
 
 	//Coin motion
 	for (int i = 0; i < 5; i++){
@@ -399,14 +439,18 @@ void App::FixedUpdate(){
 				coinsCollected++;
 			}
 			Coins[i].visible = false;
-			
-
+		}
+		if (player2.checkCollision(Coins[i]) && Coins[i].checkCollision(player2)){
+			if (Coins[i].visible){
+				coinsCollected++;
+			}
 		}
 	}
 
 
 
 	player.velocity_y = lerp(player.velocity_y, 0.0f, FIXED_TIMESTEP*.1);
+	player2.velocity_y = lerp(player2.velocity_y, 0.0f, FIXED_TIMESTEP*.1);
 	for (int i = 0; i < 4; i++) {
 		if (Unicorns[i].x < -1.5 * aspect){
 			Unicorns[i].x =  aspect;
@@ -493,6 +537,7 @@ void App::UpdateandRender(){
 	Render();
 
 	player.resetCollisions();
+	player2.resetCollisions();
 }
 
 void App::Update(){
@@ -680,25 +725,38 @@ void App::updateGameLevel(){
 	actualElapsed = elapsed - delay;
 	timer += actualElapsed;
 	timer2 += actualElapsed;
-
+	timer3 += actualElapsed;
 	//Walking animation		
 	if (keys[SDL_SCANCODE_UP]){
 		if (timer > .2) {
-			currentindex++;
+			player.index++;
 			timer = 0.0;
-			if (currentindex > numFrames - 1) {
-				currentindex = 0;
+			if (player.index > 1) {
+				player.index = 0;
 			}
 		}
-		player.index = paIndex1[currentindex];
+	
+	}
+	if (keys[SDL_SCANCODE_W]){
+		if (timer3 > .2) {
+			player2.index++;
+			timer3 = 0.0;
+			if (player2.index > 1) {
+				player2.index = 0;
+			}
+		}
 	}
 	if (!player.collideBot){
 		playerParticles.position.y = player.y - .05;
 		playerParticles.position.x = player.x - 0.02;
 	}
+	if (!player2.collideBot){
+		player2Particles.position.y = player2.y - .05;
+		player2Particles.position.x = player2.x - 0.02;
+	}
 	//Snake movement, death, and respawn.
 	for (int i = 0; i < 6; i++){
-		if ((Snakes[i].x - player.x) < .6 && player.collideBot){
+		if ((Snakes[i].x - player.x) < .6 && (player.collideBot||player2.collideBot)){
 			Snakes[i].velocity_x = -.003 - (0.001*actualElapsed);
 			Snakes[i].scale_x = 1;
 		}
@@ -735,7 +793,7 @@ void App::updateGameLevel(){
 		}
 	}
 	//Speed increase
-	for (int i = 1; i < Entities.size(); i++){
+	for (int i = 2; i < Entities.size(); i++){
 		Entities[i]->velocity_x += (-.0002*actualElapsed);
 	}
 	for (int i = 0; i < floor.size(); i++){
@@ -743,6 +801,7 @@ void App::updateGameLevel(){
 	}
 	//Particles
 	playerParticles.Update(timeLeftOver);
+	player2Particles.Update(timeLeftOver);
 	//Bullets
 	for (int i = 0; i < totalbullets; i++){
 		if (bulletindicators[i].collideTop){
@@ -959,6 +1018,7 @@ void App::drawBg() {
 	glDrawArrays(GL_QUADS, 0, 4);
 	glPopMatrix();
 }
+
 void App::renderGameLevel(){
 	//render changed to renderGameLEvel
 	glClearColor(55.0f / 255.0f, 84.0f / 255.0f, 229.0f / 255.0f, 1.0f);//Determines default coloring
@@ -977,7 +1037,9 @@ void App::renderGameLevel(){
 	if (!player.collideBot){
 		playerParticles.Render();
 	}
-
+	if (!player2.collideBot){
+		player2Particles.Render();
+	}
 	for (int i = 0; i < bulletmech.size(); i++){
 		bulletmech[i]->Render();
 	}
