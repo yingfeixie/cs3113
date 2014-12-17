@@ -65,8 +65,6 @@ void App::screenShake(){
 	screenShakeValue += FIXED_TIMESTEP;
 	glTranslatef(0.0f, sin(screenShakeValue * 25)* 0.05, 0.0f);
 	if (screenShakeValue > 1) {
-		for (int i = 0; i < 20; i++)
-			bullets[i].collideBot = false;
 		screenShakeValue = 0.0f;
 	}
 }
@@ -364,7 +362,7 @@ void App::FixedUpdate(){
 		floor[i]->x += floor[i]->velocity_x*FIXED_TIMESTEP;
 	}
 
-	for (int i = 1; i < Entities.size(); i++){
+	for (int i = 2; i < Entities.size(); i++){
 		Entities[i]->velocity_x += Entities[i]->acceleration_x*FIXED_TIMESTEP;
 		Entities[i]->x += Entities[i]->velocity_x*FIXED_TIMESTEP;
 		if (Entities[i]->checkCollision(player) && player.checkCollision(*Entities[i])){
@@ -374,12 +372,15 @@ void App::FixedUpdate(){
 			Entities[i]->collideLeft = true;
 		}
 	}
-	for (int i = 0; i < 8; i++){
+	for (int i = 0; i < 16; i++){
 		if (player.checkCollision(bullets[i]) && bullets[i].checkCollision(player)){
 			player.collideLeft = true;
+			screenShake();
+
 		}
 		if (player2.checkCollision(bullets[i]) && bullets[i].checkCollision(player2)){
 			player2.collideLeft = true;
+			screenShake();
 		}
 	}
 
@@ -1037,7 +1038,6 @@ void App::renderGameLevel(){
 	//render changed to renderGameLEvel
 	glClearColor(55.0f / 255.0f, 84.0f / 255.0f, 229.0f / 255.0f, 1.0f);//Determines default coloring
 	glClear(GL_COLOR_BUFFER_BIT);//Makes background default color
-
 	//fadeIn();
 	for (int i = 0; i < 1; i++){
 		Background[0].Render();
