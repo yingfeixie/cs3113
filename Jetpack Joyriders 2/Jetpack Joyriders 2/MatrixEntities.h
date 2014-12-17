@@ -77,7 +77,7 @@ public:
 	bool collideTop;
 	bool collideBot;
 
-	float timeAlive;
+	bool gothit;
 
 	void buildMatrix();
 	void Render();

@@ -65,6 +65,8 @@ void App::screenShake(){
 	screenShakeValue += FIXED_TIMESTEP;
 	glTranslatef(0.0f, sin(screenShakeValue * 25)* 0.05, 0.0f);
 	if (screenShakeValue > 1) {
+		player.gothit = false;
+		player2.gothit = false;
 		screenShakeValue = 0.0f;
 	}
 }
@@ -204,7 +206,7 @@ void App::Init(){
 		Snakes[i].index = 0;
 		Snakes[i].height = .15;
 		Snakes[i].width = .15;
-		Snakes[i].y = -.825 -.025*i ;
+		Snakes[i].y = -.825 - .025*i;
 		Snakes[i].x = 5;
 		Snakes[i].rotation = 0;
 		Snakes[i].velocity_x = -0.01 + (-.01*RANDOM_NUMBER);
@@ -219,7 +221,7 @@ void App::Init(){
 	}
 	//Background animation for Snakes
 	for (int i = 0; i < 3; i++){
-		saIndex[i] = i ;
+		saIndex[i] = i;
 	}
 	snakescurrentindex = 0;
 	//Bullets
@@ -248,7 +250,7 @@ void App::Init(){
 		bulletindicators[i].index = 1;
 		bulletindicators[i].height = .075;
 		bulletindicators[i].width = .075;
-		bulletindicators[i].set_y = -1+2*RANDOM_NUMBER;
+		bulletindicators[i].set_y = -1 + 2 * RANDOM_NUMBER;
 		bulletindicators[i].x = aspect - 0.06;
 		bulletindicators[i].rotation = 0;
 		bulletindicators[i].collideTop = false;
@@ -303,14 +305,14 @@ void App::Init(){
 	Background[0].spriteCountY = 1;
 	Background[0].index = 0;
 	Background[0].height = 2;
-	Background[0].width = 2*aspect;
+	Background[0].width = 2 * aspect;
 
 	hillID = LoadTexture("Hills.png");
 	bgu = 0;
 	bgv = 0;
 	for (int i = 1; i < 2; i++){
 		Background[i].textureID = hillID;
-		Background[i].x = 0 + 2*aspect * (i-1);
+		Background[i].x = 0 + 2 * aspect * (i - 1);
 		Background[i].y = -.5;
 		Background[i].scale_x = 1;
 		Background[i].scale_y = 1;
@@ -321,7 +323,7 @@ void App::Init(){
 		Background[i].width = aspect;
 		Background[i].set_x = -.0075f;
 	}
-	
+
 	for (int i = 0; i < 4; i++){
 		Unicorns[i].textureID = LoadTexture("Unicorn2.png");
 		Unicorns[i].x = 0;
@@ -375,12 +377,19 @@ void App::FixedUpdate(){
 	for (int i = 0; i < 16; i++){
 		if (player.checkCollision(bullets[i]) && bullets[i].checkCollision(player)){
 			player.collideLeft = true;
-			screenShake();
+			if (bullets[i].visible){
+				player.gothit = true;
+				bullets[i].visible = false;
+			}
+
 
 		}
 		if (player2.checkCollision(bullets[i]) && bullets[i].checkCollision(player2)){
 			player2.collideLeft = true;
-			screenShake();
+			if (bullets[i].visible){
+				player2.gothit = true;
+				bullets[i].visible = false;
+			}
 		}
 	}
 
@@ -440,7 +449,7 @@ void App::FixedUpdate(){
 
 	//Coin motion
 	for (int i = 0; i < 10; i++){
-		Coins[i].y += sin(elapsed*5)/200*FIXED_TIMESTEP;
+		Coins[i].y += sin(elapsed * 5) / 200 * FIXED_TIMESTEP;
 		Coins[i].rotation += FIXED_TIMESTEP * 2;
 		//Coin Score
 		if (player.checkCollision(Coins[i]) && Coins[i].checkCollision(player)){
@@ -463,7 +472,7 @@ void App::FixedUpdate(){
 	player2.velocity_y = lerp(player2.velocity_y, 0.0f, FIXED_TIMESTEP*.1);
 	for (int i = 0; i < 4; i++) {
 		if (Unicorns[i].x < -1.5 * aspect){
-			Unicorns[i].x =  aspect;
+			Unicorns[i].x = aspect;
 			Unicorns[i].y = 0.75;
 			uniSpawnCounter = 0;
 		}
@@ -471,22 +480,22 @@ void App::FixedUpdate(){
 		if (Unicorns[i].x - player.x > 1.0 / 4 * aspect) {
 			/*if (player.y >= Unicorns[i].y) {
 				Unicorns[i].acceleration_y = 0.01*FIXED_TIMESTEP*aspect;
-			}
-			else {
+				}
+				else {
 				Unicorns[i].acceleration_y = -0.01*FIXED_TIMESTEP*aspect;
-			}*/
+				}*/
 			Unicorns[i].y = easeOut(aspect, py, uniSpawnCounter);
 		}
 		/*else {
 			Unicorns[i].y = easeOut(aspect, player.y, uniSpawnCounter);
-		}*/
-		
+			}*/
+
 
 		Unicorns[i].velocity_y += Unicorns[i].acceleration_y * FIXED_TIMESTEP;
 		//Unicorns[i].y += Unicorns[i].velocity_y * FIXED_TIMESTEP;
 	}
-	
-	
+
+
 }
 
 void drawText(int fontTexture, string text, float size, float spacing, float r, float g, float b, float a, float x, float y) {
@@ -533,15 +542,15 @@ void App::UpdateandRender(){
 	elapsed = ticks - lastFrameTicks;
 	/*float fixedElapsed = elapsed + timeLeftOver;
 	if (fixedElapsed > FIXED_TIMESTEP * MAX_TIMESTEP) {
-		fixedElapsed = FIXED_TIMESTEP * MAX_TIMESTEP;
+	fixedElapsed = FIXED_TIMESTEP * MAX_TIMESTEP;
 	}
 	while (fixedElapsed >= FIXED_TIMESTEP) {
-		fixedElapsed -= FIXED_TIMESTEP;
-		FixedUpdate();
+	fixedElapsed -= FIXED_TIMESTEP;
+	FixedUpdate();
 	}
 	timeLeftOver = fixedElapsed;*/
 	//lastFrameTicks = ticks was not used, dont know why???
-	
+
 	Update();
 
 	Render();
@@ -573,7 +582,7 @@ void App::updateMainMenu(){
 			return;
 		}
 		if (EVENT.type == SDL_KEYDOWN) {
-			
+
 			if (EVENT.key.keysym.scancode == SDL_SCANCODE_DOWN) {
 				menuColorIndex++;
 				if (menuColorIndex > 1) {
@@ -655,7 +664,7 @@ void App::updateSetting(){
 					fullscreen = false;
 				}
 			}
-			else if (EVENT.key.keysym.scancode == SDL_SCANCODE_RETURN ){
+			else if (EVENT.key.keysym.scancode == SDL_SCANCODE_RETURN){
 				if (settingIndex == 3) {
 					SDL_DisplayMode mode;
 					SDL_GetDisplayMode(0, resolutionIndex, &mode);
@@ -677,14 +686,14 @@ void App::updateSetting(){
 					glViewport(0, 0, currentResolutionX, currentResolutionY);
 					glMatrixMode(GL_PROJECTION);
 					glLoadIdentity();//have to set identity before setting ortho or the new ortho is set based on previous ortho.
-					glOrtho(-aspect , aspect, -1.0f, 1.0f, -1.0f, 1.0f);
+					glOrtho(-aspect, aspect, -1.0f, 1.0f, -1.0f, 1.0f);
 					Background[0].width = 2 * aspect;
 					for (int i = 1; i < 2; i++){
 						Background[i].x = 0 + 2 * aspect * (i - 1);
 						Background[i].width = 2 * aspect;
 					}
 					for (int i = 0; i < totalbullets; i++){
-						bulletindicators[i].x = aspect - 0.06/1.33*aspect;
+						bulletindicators[i].x = aspect - 0.06 / 1.33*aspect;
 
 					}
 					Background[1].width = aspect;
@@ -710,7 +719,7 @@ void App::updateSetting(){
 void App::updateGameLevel(){
 
 	//Update() is changed to updateGameLevel(),definition not changed. but not working properly\
-				have to figure out where to put fixedupdate in .
+					have to figure out where to put fixedupdate in .
 	//do a poll event to check quit and input.
 	while (SDL_PollEvent(&EVENT)) {
 		if (EVENT.type == SDL_QUIT || EVENT.type == SDL_WINDOWEVENT_CLOSE) {
@@ -745,7 +754,7 @@ void App::updateGameLevel(){
 				player.index = 0;
 			}
 		}
-	
+
 	}
 	if (keys[SDL_SCANCODE_W]){
 		if (timer3 > .2) {
@@ -766,7 +775,7 @@ void App::updateGameLevel(){
 	}
 	//Snake movement, death, and respawn.
 	for (int i = 0; i < 6; i++){
-		if ((Snakes[i].x - player.x) < .6 && (player.collideBot||player2.collideBot)){
+		if ((Snakes[i].x - player.x) < .6 && (player.collideBot || player2.collideBot)){
 			//Snakes[i].velocity_x = -.005 - (0.001*actualElapsed);
 			Snakes[i].scale_x = 1;
 		}
@@ -951,8 +960,8 @@ void App::renderMainMenu(){
 	float space = 0.0f;
 	float x = 0 - (float)text.size()*size / 2;
 	float y = 1.0 / 4;
-	float per = noise1(perlinValue)*0.1 ; 
-	drawText(font, text, size, space, .5, .7, 1, 1, x, 1 - 2 * y+per);
+	float per = noise1(perlinValue)*0.1;
+	drawText(font, text, size, space, .5, .7, 1, 1, x, 1 - 2 * y + per);
 
 	animationAValue = mapValue(elapsed, 0.0f, 5.0f, 0.0f, 1.0f);
 
@@ -1018,7 +1027,7 @@ void App::drawBg() {
 
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, hillID);
-	GLfloat quadUVs[] = {bgu, bgv,
+	GLfloat quadUVs[] = { bgu, bgv,
 		bgu, bgv + Background[1].height,
 		bgu + Background[1].width, bgv + Background[1].height,
 		bgu + Background[1].width, bgv };
@@ -1069,13 +1078,23 @@ void App::renderGameLevel(){
 	float space = -0.02;
 	float x = -aspect;
 
-	drawText(font, text, size, space, 1, 0, 0,1 , x+0.1, 1-size);
+	drawText(font, text, size, space, 1, 0, 0, 1, x + 0.1, 1 - size);
 
 	stringstream s2;
 	s2 << "Coins: " << coinsCollected2;
 	string text2 = s2.str().c_str();
 
 	drawText(font, text2, size, space, 0, 0, 1, 1, x + 0.1, .9 - size);
+	//Screen shake
+	glLoadIdentity();
+	if (player.gothit || player2.gothit){
+		screenShake();
+	}
+		
+
+
+
+
 
 	SDL_GL_SwapWindow(displayWindow);
 }
