@@ -95,6 +95,7 @@ public:
 	Entity Coins[5];
 	float cointimer[5];
 	int coinsCollected;
+	int coinsCollected2;
 
 	const Uint8* keys;
 	SDL_Window* displayWindow;

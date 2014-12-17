@@ -190,6 +190,12 @@ void App::Init(){
 	ParticleEmitter temp(25);
 	player2Particles = temp;
 	player2Particles.position.x = -.85f;
+	player2Particles.colorDeviation.r = 0;
+	player2Particles.colorDeviation.b = 1;
+	player2Particles.startColor.r = 0;
+	player2Particles.startColor.b = 1;
+	player2Particles.endColor.r = 0;
+	player2Particles.endColor.b = 1;
 	playerParticles = temp;
 	playerParticles.position.x = -.85f;
 	//Wandering background stuff
@@ -288,6 +294,8 @@ void App::Init(){
 	Mix_VolumeMusic(musicVolume);
 	perlinValue = 0;
 	coinsCollected = 0;
+	coinsCollected2 = 0;
+
 
 	//Background
 	Background[0].textureID = LoadTexture("DarkCloudy.png");
@@ -442,7 +450,7 @@ void App::FixedUpdate(){
 		}
 		if (player2.checkCollision(Coins[i]) && Coins[i].checkCollision(player2)){
 			if (Coins[i].visible){
-				coinsCollected++;
+				coinsCollected2++;
 			}
 		}
 	}
@@ -807,7 +815,7 @@ void App::updateGameLevel(){
 		if (bulletindicators[i].collideTop){
 			bullettimers[i] += actualElapsed;
 			if (bullettimers[i] <= 2.5){
-				float animationValue = mapValue(bullettimers[i], 0, 1750, 0.0f, 1.0);
+				float animationValue = mapValue(bullettimers[i], 0, 300, 0.0f, 1.0);
 				bulletindicators[i].y = bulletindicators[i].set_y;
 				bulletindicators[i].set_y = lerp(bulletindicators[i].y, player.y, animationValue);
 			}
@@ -817,7 +825,7 @@ void App::updateGameLevel(){
 				bullets[i].x = 2.5;
 				bullets[i].y = bulletindicators[i].set_y;
 				bulletindicators[i].collideTop = false;
-				bullets[i].velocity_x = -0.04;
+				bullets[i].velocity_x = -0.1;
 				bullets[i].visible = true;
 				bulletindicators[i].index = 1;
 			}
@@ -1052,10 +1060,16 @@ void App::renderGameLevel(){
 	s << "Coins: " << coinsCollected;
 	string text = s.str().c_str();
 	float size = 0.1;
-	float space = 0;
+	float space = -0.02;
 	float x = -aspect;
 
-	drawText(font, text, size, space, 1, 1, 1,1 , x+0.1, 1-size);
+	drawText(font, text, size, space, 1, 0, 0,1 , x+0.1, 1-size);
+
+	stringstream s2;
+	s2 << "Coins: " << coinsCollected2;
+	string text2 = s2.str().c_str();
+
+	drawText(font, text2, size, space, 0, 0, 1, 1, x + 0.1, .9 - size);
 
 	SDL_GL_SwapWindow(displayWindow);
 }
