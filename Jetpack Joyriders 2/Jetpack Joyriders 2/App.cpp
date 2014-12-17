@@ -1092,6 +1092,7 @@ void App::updateGameOver(){
 					player2hp = 3;
 					player2.x = -0.85f;
 					coinsCollected2 = 0;
+					actualElapsed = 0;
 					frameAlpha = 0;
 					invincible = true;
 					invincibleTimer = 3;
