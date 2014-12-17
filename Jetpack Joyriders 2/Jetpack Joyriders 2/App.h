@@ -6,6 +6,7 @@
 #define MAX_TIMESTEP 6
 #include "PerlinNoise.h"
 
+
 class App{
 public:
 	App();
@@ -76,7 +77,7 @@ public:
 	Entity fireSprite;
 	Entity Unicorns[4];
 	float unitimer[4];
-
+	Mix_Chunk *coinsound, *hitsound,*kdsound; 
 
 	int saIndex[4];
 	int snakescurrentindex;

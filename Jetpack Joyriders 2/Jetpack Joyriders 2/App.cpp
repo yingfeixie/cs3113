@@ -89,7 +89,9 @@ App::App(){
 }
 
 App::~App(){
-	//Mix_FreeChunk(shoot);
+	Mix_FreeChunk(coinsound);
+	Mix_FreeChunk(hitsound);
+	Mix_FreeChunk(kdsound);
 	Mix_FreeMusic(music);
 	SDL_Quit();
 }
@@ -132,7 +134,7 @@ void App::Init(){
 	glViewport(0, 0, currentResolutionX, currentResolutionY);//The start of using OpenGL with the arguments as the resolution.
 	glMatrixMode(GL_PROJECTION);//Usually ran once and thats it.
 	glOrtho(-aspect, aspect, -1, 1, -1, 1);//The ratio of resolutions
-
+	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);//Wav sound effects
 	timeLeftOver = 0.0f;
 	delay = 0.0f;
 	SpriteSheetTextureID = LoadTexture("SpriteSheet.png");
@@ -340,6 +342,11 @@ void App::Init(){
 	}
 	uniSpawnCounter = 0;
 	spawnUni = 0;
+
+	//Sound
+	coinsound = Mix_LoadWAV("coin.wav");
+	hitsound = Mix_LoadWAV("hit.wav");
+	kdsound = Mix_LoadWAV("kdsound.wav");
 }
 
 void App::fadeIn() {
@@ -379,6 +386,7 @@ void App::FixedUpdate(){
 			player.collideLeft = true;
 			if (bullets[i].visible){
 				player.gothit = true;
+				Mix_PlayChannel(-1, hitsound, 0);
 				bullets[i].visible = false;
 			}
 
@@ -388,6 +396,7 @@ void App::FixedUpdate(){
 			player2.collideLeft = true;
 			if (bullets[i].visible){
 				player2.gothit = true;
+				Mix_PlayChannel(-1, hitsound, 0);
 				bullets[i].visible = false;
 			}
 		}
@@ -455,12 +464,14 @@ void App::FixedUpdate(){
 		if (player.checkCollision(Coins[i]) && Coins[i].checkCollision(player)){
 			if (Coins[i].visible){
 				coinsCollected++;
+				Mix_PlayChannel(-1, coinsound, 0);
 			}
 			Coins[i].visible = false;
 		}
 		if (player2.checkCollision(Coins[i]) && Coins[i].checkCollision(player2)){
 			if (Coins[i].visible){
 				coinsCollected2++;
+				Mix_PlayChannel(-1, coinsound, 0);
 			}
 			Coins[i].visible = false;
 		}
@@ -468,8 +479,8 @@ void App::FixedUpdate(){
 
 
 
-	player.velocity_y = lerp(player.velocity_y, 0.0f, FIXED_TIMESTEP*.1);
-	player2.velocity_y = lerp(player2.velocity_y, 0.0f, FIXED_TIMESTEP*.1);
+	player.velocity_y = lerp(player.velocity_y, 0.0f, FIXED_TIMESTEP*.025);
+	player2.velocity_y = lerp(player2.velocity_y, 0.0f, FIXED_TIMESTEP*.025);
 	for (int i = 0; i < 4; i++) {
 		if (Unicorns[i].x < -1.5 * aspect){
 			Unicorns[i].x = aspect;
