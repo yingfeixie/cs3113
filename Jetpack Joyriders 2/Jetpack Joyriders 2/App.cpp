@@ -47,7 +47,30 @@ float easeInOut(float from, float to, float time) {
 	}
 	return (1.0f - tVal)*from + tVal*to;
 }
+void App::fadeOut() {
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glPushMatrix();
+	glLoadIdentity();
+	GLfloat quad[] = { -2 * aspect, 2,
+		-2 * aspect, -2,
+		2 * aspect, -2,
+		2 * aspect, 2
+	};
+	GLfloat color[] = { 0.0, 0.0, 0.0, frameAlpha,
+		0.0, 0.0, 0.0, frameAlpha,
+		0.0, 0.0, 0.0, frameAlpha,
+		0.0, 0.0, 0.0, frameAlpha,
+	};
 
+	glDisable(GL_TEXTURE_2D);
+	glEnableClientState(GL_COLOR_ARRAY);
+	glColorPointer(4, GL_FLOAT, 0, color);
+	glVertexPointer(2, GL_FLOAT, 0, quad);
+	glDrawArrays(GL_QUADS, 0, 4);
+	glDisableClientState(GL_COLOR_ARRAY);
+	glPopMatrix();
+}
 void App::checkCollision(){
 
 	for (int i = 0; i < Entities.size(); i++){
@@ -292,7 +315,7 @@ void App::Init(){
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
 	music = Mix_LoadMUS("music.mp3");
 	Mix_PlayMusic(music, -1);
-	musicVolume = 10;
+	musicVolume = 0;
 	Mix_VolumeMusic(musicVolume);
 	perlinValue = 0;
 	coinsCollected = 0;
@@ -326,9 +349,9 @@ void App::Init(){
 		Background[i].set_x = -.0075f;
 	}
 
-	for (int i = 0; i < 4; i++){
+	for (int i = 0; i < 2; i++){
 		Unicorns[i].textureID = LoadTexture("Unicorn2.png");
-		Unicorns[i].x = 0;
+		Unicorns[i].x = 2*aspect;
 		Unicorns[i].y = RANDOM_NUMBER;
 		Unicorns[i].spriteCountX = 2;
 		Unicorns[i].spriteCountY = 1;
@@ -347,6 +370,21 @@ void App::Init(){
 	coinsound = Mix_LoadWAV("coin.wav");
 	hitsound = Mix_LoadWAV("hit.wav");
 	kdsound = Mix_LoadWAV("kdsound.wav");
+
+	player1hp = 3;
+	player2hp = 3;
+	pause = false;
+	gameOverfIndex = 0;
+	gameOverColors = vector<float>(2, 0.0);
+	p1hitCooldown = 0;
+	p2hitCooldown = 0;
+	//state = STATE_GAME_OVER;
+	animationAValue = 0;
+	glClearColor(0, 0, 0, 1.0f);
+	invincible = false;
+	invincibleTimer = 3;
+
+
 }
 
 void App::fadeIn() {
@@ -386,6 +424,7 @@ void App::FixedUpdate(){
 			player.collideLeft = true;
 			if (bullets[i].visible){
 				player.gothit = true;
+
 				Mix_PlayChannel(-1, hitsound, 0);
 				bullets[i].visible = false;
 			}
@@ -396,18 +435,27 @@ void App::FixedUpdate(){
 			player2.collideLeft = true;
 			if (bullets[i].visible){
 				player2.gothit = true;
+	
 				Mix_PlayChannel(-1, hitsound, 0);
 				bullets[i].visible = false;
 			}
 		}
 	}
 
-	for (int i = 0; i < 4; i++){
-		if (player.checkCollision(Unicorns[i]) && Unicorns[i].checkCollision(player)){
-			player.collideLeft = true;
-		}
-		if (player2.checkCollision(Unicorns[i]) && Unicorns[i].checkCollision(player)){
-			player2.collideLeft = true;
+	for (int i = 0; i < 2; i++){
+		if (Unicorns[i].visible){
+			if (player.checkCollision(Unicorns[i]) && Unicorns[i].checkCollision(player)){
+				player.collideLeft = true;
+				player.gothit = true;
+				Unicorns[i].visible = false;
+				Mix_PlayChannel(-1, hitsound, 0);
+			}
+			if (player2.checkCollision(Unicorns[i]) && Unicorns[i].checkCollision(player2)){
+				player2.collideLeft = true;
+				player2.gothit = true;
+				Unicorns[i].visible = false;
+				Mix_PlayChannel(-1, hitsound, 0);
+			}
 		}
 	}
 
@@ -441,20 +489,26 @@ void App::FixedUpdate(){
 	}
 	keys = SDL_GetKeyboardState(NULL);
 
-	if (keys[SDL_SCANCODE_UP]){
+	if (keys[SDL_SCANCODE_UP] && player1hp > 0){
 		player.acceleration_y = 0.9f*FIXED_TIMESTEP;// Computers too laggy to run it as it's suppose to.
 	}
 	if (player.collideLeft){
 		//cout << "you're dead!" << endl;
 	}
 
-	if (keys[SDL_SCANCODE_W]){
+	if (keys[SDL_SCANCODE_W] && player2hp > 0){
 		player2.acceleration_y = 0.9f*FIXED_TIMESTEP;// Computers too laggy to run it as it's suppose to.
 	}
 	if (player2.collideLeft){
 		//cout << "you're dead!" << endl;
 	}
 
+	if (player1hp == 0) {
+		player.x -= FIXED_TIMESTEP * 0.1;
+	}
+	if (player2hp == 0) {
+		player2.x -= FIXED_TIMESTEP * 0.1;
+	}
 
 	//Coin motion
 	for (int i = 0; i < 10; i++){
@@ -464,6 +518,7 @@ void App::FixedUpdate(){
 		if (player.checkCollision(Coins[i]) && Coins[i].checkCollision(player)){
 			if (Coins[i].visible){
 				coinsCollected++;
+				player1hp++;
 				Mix_PlayChannel(-1, coinsound, 0);
 			}
 			Coins[i].visible = false;
@@ -471,6 +526,7 @@ void App::FixedUpdate(){
 		if (player2.checkCollision(Coins[i]) && Coins[i].checkCollision(player2)){
 			if (Coins[i].visible){
 				coinsCollected2++;
+				player2hp++;
 				Mix_PlayChannel(-1, coinsound, 0);
 			}
 			Coins[i].visible = false;
@@ -481,29 +537,47 @@ void App::FixedUpdate(){
 
 	player.velocity_y = lerp(player.velocity_y, 0.0f, FIXED_TIMESTEP*.025);
 	player2.velocity_y = lerp(player2.velocity_y, 0.0f, FIXED_TIMESTEP*.025);
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 2; i++) {
 		if (Unicorns[i].x < -1.5 * aspect){
-			Unicorns[i].x = aspect;
-			Unicorns[i].y = 0.75;
+			Unicorns[i].x = 2* aspect;
+			Unicorns[i].velocity_x = 0;
+			Unicorns[i].y = 0;
 			uniSpawnCounter = 0;
+			Unicorns[i].visible = true;
 		}
-		float py = player.y;
-		if (Unicorns[i].x - player.x > 1.0 / 4 * aspect) {
-			/*if (player.y >= Unicorns[i].y) {
-				Unicorns[i].acceleration_y = 0.01*FIXED_TIMESTEP*aspect;
-				}
-				else {
-				Unicorns[i].acceleration_y = -0.01*FIXED_TIMESTEP*aspect;
-				}*/
-			Unicorns[i].y = easeOut(aspect, py, uniSpawnCounter);
-		}
+		
+		//if (Unicorns[i].x - player.x > 1.0 / 4 * aspect) {
+		//	/*if (player.y >= Unicorns[i].y) {
+		//		Unicorns[i].acceleration_y = 0.01*FIXED_TIMESTEP*aspect;
+		//		}
+		//		else {
+		//		Unicorns[i].acceleration_y = -0.01*FIXED_TIMESTEP*aspect;
+		//		}*/
+		//	Unicorns[i].y = easeOut(aspect, py, uniSpawnCounter);
+		//}
 		/*else {
 			Unicorns[i].y = easeOut(aspect, player.y, uniSpawnCounter);
 			}*/
 
 
-		Unicorns[i].velocity_y += Unicorns[i].acceleration_y * FIXED_TIMESTEP;
+		//Unicorns[i].velocity_y += Unicorns[i].acceleration_y * FIXED_TIMESTEP;
 		//Unicorns[i].y += Unicorns[i].velocity_y * FIXED_TIMESTEP;
+	}
+	
+	if (spawnUni) {
+		if (player1hp > 0){
+			if (Unicorns[0].x - player.x > 1.0 / 2 * aspect){
+				Unicorns[0].velocity_x = -0.055;
+				Unicorns[0].y = player.y + 0.25 * sin(uniSpawnCounter);// +0.5 - 0.25 * i;
+			}
+		}
+		if (player2hp > 0){
+			if (Unicorns[1].x - player2.x > 1.0 / 2 * aspect){
+				Unicorns[1].velocity_x = -0.055;
+				Unicorns[1].y = player2.y + 0.25 * sin(uniSpawnCounter + 0.5);// +0.5 - 0.25 * i;
+			}
+		}
+		spawnUni = false;
 	}
 
 
@@ -532,7 +606,8 @@ void drawText(int fontTexture, string text, float size, float spacing, float r, 
 		texCoordData.insert(texCoordData.end(), { texture_x, texture_y, texture_x, texture_y + texture_size, texture_x +
 			texture_size, texture_y + texture_size, texture_x + texture_size, texture_y });
 	}
-
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glColorPointer(4, GL_FLOAT, 0, colorData.data());
 	glEnableClientState(GL_COLOR_ARRAY);
 	glVertexPointer(2, GL_FLOAT, 0, vertexData.data());
@@ -736,8 +811,13 @@ void App::updateGameLevel(){
 		if (EVENT.type == SDL_QUIT || EVENT.type == SDL_WINDOWEVENT_CLOSE) {
 			done = true;;
 		}
+		if (EVENT.type == SDL_KEYDOWN) {
+			if (EVENT.key.keysym.scancode == SDL_SCANCODE_P) {
+				pause = !pause;
+			}
+		}
 	}
-
+	if (!pause) {
 	/*float ticks = (float)SDL_GetTicks() / 1000.0f;
 	elapsed = ticks - lastFrameTicks;*/
 	float fixedElapsed = elapsed + timeLeftOver;
@@ -927,7 +1007,7 @@ void App::updateGameLevel(){
 
 	//Unicorn Motion and Animation
 
-	for (int i = 0; i < 4; i++){
+	for (int i = 0; i < 2; i++){
 		unitimer[i] += actualElapsed;
 		if (unitimer[i] > .35){
 			unitimer[i] = 0;
@@ -938,13 +1018,102 @@ void App::updateGameLevel(){
 		}
 	}
 	//added unicorn spawn and movement in fixed update
-	uniSpawnCounter += actualElapsed;
+	float random = (float)rand() / RAND_MAX;
+	//cout << random << endl;
+	uniSpawnCounter += actualElapsed * (float) rand()/RAND_MAX;
 	if (uniSpawnCounter > 2.0) spawnUni = true;
 
 	delay = elapsed;
+	p1hitCooldown += elapsed;
+	p2hitCooldown += elapsed;
+	if (!invincible) {
+		if (player.gothit && p1hitCooldown > 1000.0) {
+			if (player1hp > 0) player1hp--;
+			p1hitCooldown = 0;
+		}
+		if (player2.gothit && p2hitCooldown > 1000.0) {
+			if (player2hp > 0) player2hp--;
+			p2hitCooldown = 0;
+		}
+	}
+	
+
+
+	/*if (player.gothit || player2.gothit){
+		player1hp--;
+		player2hp--;
+	}*/
+	if (player1hp <= 0 && player2hp <= 0) {
+		animationTime += actualElapsed;
+		float animationValue = mapValue(animationTime, 0, 4, 0.0, 1.0);
+		frameAlpha = lerp(0, 1, animationValue);
+		if (frameAlpha >= 1){
+			state = STATE_GAME_OVER;
+			animationTime = 0;
+		}
+	}
+	if (invincibleTimer > 0 && invincible){
+		float currenttime = SDL_GetTicks() / 1000.0f;
+		float pass = currenttime - invincibleStart;
+		invincibleTimer -= pass; 
+		invincibleStart = currenttime;
+		cout << invincibleTimer << endl;
+	}
+	else invincible = false;
+}
 }
 
-void App::updateGameOver(){};
+void App::updateGameOver(){
+	while (SDL_PollEvent(&EVENT)) {
+		if (EVENT.type == SDL_QUIT || EVENT.type == SDL_WINDOWEVENT_CLOSE) {
+			done = true;
+			return;
+		}
+		if (EVENT.type == SDL_KEYDOWN) {
+			if (EVENT.key.keysym.scancode == SDL_SCANCODE_DOWN) {
+				gameOverfIndex++;
+				if (gameOverfIndex > 1) {
+					gameOverfIndex = 1;
+				}
+			}
+			else if (EVENT.key.keysym.scancode == SDL_SCANCODE_UP){
+				gameOverfIndex--;
+				if (gameOverfIndex < 0) {
+					gameOverfIndex = 0;
+				}
+			}
+			if (EVENT.key.keysym.scancode == SDL_SCANCODE_RETURN){
+				if (gameOverfIndex == 0) {
+					state = STATE_GAME_LEVEL;
+					player1hp = 3;
+					player.x = -0.85f;
+					coinsCollected = 0;
+					player2hp = 3;
+					player2.x = -0.85f;
+					coinsCollected2 = 0;
+					frameAlpha = 0;
+					invincible = true;
+					invincibleTimer = 3;
+					invincibleStart = SDL_GetTicks() / 1000.0f;
+
+				}
+				else {
+					done = true;
+				}
+			}
+		}
+	}
+	flicker += flickerSign *0.001;
+	if (flicker > 1 || flicker < 0) {
+		flickerSign *= -1;
+	}
+	for (int i = 0; i < gameOverColors.size(); i++){
+		if (i == gameOverfIndex) {
+			gameOverColors[i] = flicker;
+		}
+		else gameOverColors[i] = 1.0f;
+	}
+}
 
 void App::Render() {
 	switch (state){
@@ -966,7 +1135,7 @@ void App::Render() {
 
 void App::renderMainMenu(){
 	glClear(GL_COLOR_BUFFER_BIT);
-	string text = "Insert game name here";
+	string text = "Dragons' Midnight Pizza Run";
 	float size = (float)currentResolutionX / currentResolutionY * 2 / 40;
 	float space = 0.0f;
 	float x = 0 - (float)text.size()*size / 2;
@@ -1024,7 +1193,7 @@ void App::renderSetting(){
 	SDL_GL_SwapWindow(displayWindow);
 };
 
-void App::drawBg() {
+void App::drawBg(GLuint id) {
 	glPushMatrix();
 	glLoadIdentity();
 
@@ -1037,7 +1206,7 @@ void App::drawBg() {
 	glEnableClientState(GL_VERTEX_ARRAY);
 
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, hillID);
+	glBindTexture(GL_TEXTURE_2D, id);
 	GLfloat quadUVs[] = { bgu, bgv,
 		bgu, bgv + Background[1].height,
 		bgu + Background[1].width, bgv + Background[1].height,
@@ -1063,7 +1232,7 @@ void App::renderGameLevel(){
 		Background[0].Render();
 	}
 
-	drawBg();
+	drawBg(hillID);
 
 	for (int i = 0; i < floor.size(); i++){
 		floor[i]->Render();
@@ -1096,19 +1265,53 @@ void App::renderGameLevel(){
 	string text2 = s2.str().c_str();
 
 	drawText(font, text2, size, space, 0, 0, 1, 1, x + 0.1, .9 - size);
+
+	stringstream s3;
+	s3 << "HP: " << player1hp;
+	string text3 = s3.str().c_str();
+	x = aspect - (float)text3.size()*size - 0.1 ;
+	drawText(font, text3, size, space, 1, 0, 0, 1, x, 1 - size);
+
+	stringstream s4;
+	s4 << "HP: " << player2hp;
+	string text4 = s4.str().c_str();
+	x = aspect - (float)text4.size()*size - 0.1;
+	drawText(font, text4, size, space, 0, 0, 1, 1, x, 0.9 - size);
+
+	if (invincible) {
+		text = "INVINCIBLE";
+		x = 0 - (float)text.size()*size / 2 + 1/6.0 * aspect;
+		drawText(font, text, size, space, 0, 0, 0, sin(invincibleTimer*10), x, 0.9 - size);
+	}
+	
 	//Screen shake
 	glLoadIdentity();
 	if (player.gothit || player2.gothit){
 		screenShake();
 	}
-		
+	if (player1hp <= 0 && player2hp <= 0) {
+	fadeOut();
 
-
-
-
+	}
 
 	SDL_GL_SwapWindow(displayWindow);
 }
 
-void App::renderGameOver(){};
+void App::renderGameOver(){
+	glClearColor(0, 0, 0, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+	string text = "Game Over";
+	float size = (float)currentResolutionX / currentResolutionY * 2 / 40;
+	float space = 0.0f;
+	float x = 0 - (float)text.size()*size / 2;
+	float y = 2.0 / 4;
+	drawText(font, text, size, space, 1, 1, 1, 1, x, 1 - y);
+	text = "Restart";
+	x = 0 - (float)text.size()*size / 2;
+	drawText(font, text, size, space, gameOverColors[0], gameOverColors[0], gameOverColors[0], gameOverColors[0], x, 1 - 2*y);
+	text = "Quit";
+	x = 0 - (float)text.size()*size / 2;
+	drawText(font, text, size, space, gameOverColors[1], gameOverColors[1], gameOverColors[1], gameOverColors[1], x, 1 - 3 * y);
+	SDL_GL_SwapWindow(displayWindow);
+}
 

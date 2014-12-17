@@ -35,6 +35,14 @@ public:
 	int menuColorIndex;
 	int settingIndex;
 	int resolutionIndex;
+	int gameOverfIndex;
+	vector<float> gameOverColors;
+	float p1hitCooldown;
+	float p2hitCooldown;
+	void fadeOut();
+	float frameAlpha;
+
+
 	int currentResolutionX;
 	int currentResolutionY;
 	bool fullscreen;
@@ -51,9 +59,12 @@ public:
 	float lastFrameTicks;
 	float elapsed, delay, actualElapsed, timer, timer2,timer3;
 	GLuint hillID;
-	void drawBg();
+	void drawBg(GLuint id);
 	float bgv;
 	float bgu;
+	float fgu;
+	float fgv;
+
 	float uniSpawnCounter;
 	bool spawnUni;
 	GLuint SpriteSheetTextureID;
@@ -63,6 +74,14 @@ public:
 
 	Entity player;
 	Entity player2;
+
+	int player1hp;
+	int player2hp;
+	bool pause;
+	bool invincible;
+	float invincibleTimer;
+	float invincibleStart;
+	GLuint mainScreen;
 
 	int paIndex1[4];
 	int numFrames;

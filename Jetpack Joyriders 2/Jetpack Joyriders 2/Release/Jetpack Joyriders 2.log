@@ -1,82 +1,131 @@
-﻿Build started 12/12/2014 5:01:14 PM.
-     1>Project "C:\Users\acb\Desktop\Game-Programming-Work\Jetpack Joyriders 2\Jetpack Joyriders 2\Jetpack Joyriders 2.vcxproj" on node 2 (Build target(s)).
+﻿Build started 12/17/2014 3:54:26 AM.
+     1>Project "C:\Users\acb\Desktop\fff\Jetpack Joyriders 2\Jetpack Joyriders 2\Jetpack Joyriders 2.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\SDL2_mixer\include /IC:\SDL2\include /IC:\SDL2_image\include /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt App.cpp
          App.cpp
      1>App.cpp(22): warning C4244: 'return' : conversion from 'double' to 'float', possible loss of data
      1>App.cpp(46): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>App.cpp(53): warning C4018: '<' : signed/unsigned mismatch
-     1>App.cpp(54): warning C4018: '<' : signed/unsigned mismatch
-     1>App.cpp(65): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>App.cpp(66): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>App.cpp(151): warning C4305: '=' : truncation from 'double' to 'float'
-     1>App.cpp(152): warning C4305: '=' : truncation from 'double' to 'float'
-     1>App.cpp(153): warning C4305: '=' : truncation from 'double' to 'float'
-     1>App.cpp(187): warning C4305: '=' : truncation from 'double' to 'float'
-     1>App.cpp(188): warning C4305: '=' : truncation from 'double' to 'float'
-     1>App.cpp(189): warning C4305: '=' : truncation from 'double' to 'float'
-     1>App.cpp(192): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>App.cpp(193): warning C4305: '=' : truncation from 'double' to 'float'
-     1>App.cpp(215): warning C4305: '=' : truncation from 'double' to 'float'
-     1>App.cpp(216): warning C4305: '=' : truncation from 'double' to 'float'
-     1>App.cpp(218): warning C4305: '=' : truncation from 'double' to 'float'
-     1>App.cpp(231): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(76): warning C4018: '<' : signed/unsigned mismatch
+     1>App.cpp(77): warning C4018: '<' : signed/unsigned mismatch
+     1>App.cpp(88): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>App.cpp(89): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>App.cpp(178): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(179): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(180): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(190): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(191): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(192): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(203): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(204): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(206): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(208): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(210): warning C4305: '=' : truncation from 'double' to 'float'
      1>App.cpp(232): warning C4305: '=' : truncation from 'double' to 'float'
-     1>App.cpp(234): warning C4305: '=' : truncation from 'double' to 'float'
-     1>App.cpp(248): warning C4305: '=' : truncation from 'double' to 'float'
-     1>App.cpp(250): warning C4305: '=' : truncation from 'double' to 'float'
-     1>App.cpp(122): warning C4101: 'EVENT' : unreferenced local variable
-     1>App.cpp(287): warning C4018: '<' : signed/unsigned mismatch
-     1>App.cpp(289): warning C4305: '=' : truncation from 'double' to 'float'
-     1>App.cpp(291): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>App.cpp(294): warning C4018: '<' : signed/unsigned mismatch
-     1>App.cpp(295): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>App.cpp(296): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>App.cpp(307): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>App.cpp(308): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>App.cpp(309): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>App.cpp(312): warning C4305: '=' : truncation from 'double' to 'float'
-     1>App.cpp(317): warning C4305: '=' : truncation from 'double' to 'float'
-     1>App.cpp(324): warning C4305: '=' : truncation from 'double' to 'float'
-     1>App.cpp(332): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>App.cpp(333): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>App.cpp(342): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>App.cpp(356): warning C4018: '<' : signed/unsigned mismatch
-     1>App.cpp(387): warning C4305: '=' : truncation from 'double' to 'float'
-     1>App.cpp(390): warning C4305: '-=' : truncation from 'double' to 'float'
-     1>App.cpp(454): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>App.cpp(458): warning C4018: '<' : signed/unsigned mismatch
-     1>App.cpp(528): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>App.cpp(532): warning C4018: '<' : signed/unsigned mismatch
-     1>App.cpp(543): warning C4010: single-line comment contains line-continuation character
-     1>App.cpp(571): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>App.cpp(587): warning C4305: '=' : truncation from 'double' to 'float'
-     1>App.cpp(590): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>App.cpp(594): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>App.cpp(600): warning C4305: '=' : truncation from 'double' to 'float'
-     1>App.cpp(601): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>App.cpp(602): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>App.cpp(603): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>App.cpp(607): warning C4018: '<' : signed/unsigned mismatch
-     1>App.cpp(608): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>App.cpp(610): warning C4018: '<' : signed/unsigned mismatch
-     1>App.cpp(611): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>App.cpp(630): warning C4305: '=' : truncation from 'double' to 'float'
-     1>App.cpp(720): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>App.cpp(742): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>App.cpp(769): warning C4018: '<' : signed/unsigned mismatch
-     1>App.cpp(773): warning C4018: '<' : signed/unsigned mismatch
-     1>App.cpp(776): warning C4018: '<' : signed/unsigned mismatch
+     1>App.cpp(233): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(234): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(237): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(238): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(260): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(261): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(263): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(276): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(277): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(279): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(293): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(295): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(319): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>App.cpp(359): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(360): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(361): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(149): warning C4101: 'EVENT' : unreferenced local variable
+     1>App.cpp(405): warning C4018: '<' : signed/unsigned mismatch
+     1>App.cpp(407): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(409): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(412): warning C4018: '<' : signed/unsigned mismatch
+     1>App.cpp(413): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(414): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(462): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(463): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(464): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(467): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(472): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(476): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(477): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(478): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(481): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(486): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(493): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(500): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(507): warning C4305: '-=' : truncation from 'double' to 'float'
+     1>App.cpp(510): warning C4305: '-=' : truncation from 'double' to 'float'
+     1>App.cpp(515): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(516): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>App.cpp(538): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>App.cpp(539): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>App.cpp(569): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(570): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(573): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(574): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(594): warning C4018: '<' : signed/unsigned mismatch
+     1>App.cpp(690): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>App.cpp(691): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(695): warning C4018: '<' : signed/unsigned mismatch
+     1>App.cpp(728): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>App.cpp(742): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>App.cpp(777): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(788): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(792): warning C4018: '<' : signed/unsigned mismatch
+     1>App.cpp(803): warning C4010: single-line comment contains line-continuation character
+     1>App.cpp(820): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(823): warning C4305: '-=' : truncation from 'double' to 'float'
+     1>App.cpp(855): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(856): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(859): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(860): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(879): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(881): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(884): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(888): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(894): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(895): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(896): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(897): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>App.cpp(901): warning C4018: '<' : signed/unsigned mismatch
+     1>App.cpp(902): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(904): warning C4018: '<' : signed/unsigned mismatch
+     1>App.cpp(905): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(930): warning C4305: '=' : truncation from 'double' to 'float'
+     1>App.cpp(990): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(1001): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(1101): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(1105): warning C4018: '<' : signed/unsigned mismatch
+     1>App.cpp(1138): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(1139): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>App.cpp(1166): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>App.cpp(1232): warning C4018: '<' : signed/unsigned mismatch
+     1>App.cpp(1241): warning C4018: '<' : signed/unsigned mismatch
+     1>App.cpp(1245): warning C4018: '<' : signed/unsigned mismatch
+     1>App.cpp(1252): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>App.cpp(1253): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>App.cpp(1256): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(1262): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(1267): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(1273): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(1274): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(1278): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>App.cpp(1279): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\acb\Desktop\Game-Programming-Work\Jetpack Joyriders 2\Release\Jetpack Joyriders 2.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:C:\SDL2\lib\x86 /LIBPATH:C:\SDL2_mixer\lib\x86 /LIBPATH:C:\SDL2_image\lib\x86 SDL2.lib SDL2main.lib SDL2_image.lib OpenGL32.lib SDL2_mixer.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\acb\Desktop\Game-Programming-Work\Jetpack Joyriders 2\Release\Jetpack Joyriders 2.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\acb\Desktop\Game-Programming-Work\Jetpack Joyriders 2\Release\Jetpack Joyriders 2.lib" /MACHINE:X86 /SAFESEH Release\App.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\acb\Desktop\fff\Jetpack Joyriders 2\Release\Jetpack Joyriders 2.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:C:\SDL2\lib\x86 /LIBPATH:C:\SDL2_mixer\lib\x86 /LIBPATH:C:\SDL2_image\lib\x86 SDL2.lib SDL2main.lib SDL2_image.lib OpenGL32.lib SDL2_mixer.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\acb\Desktop\fff\Jetpack Joyriders 2\Release\Jetpack Joyriders 2.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\acb\Desktop\fff\Jetpack Joyriders 2\Release\Jetpack Joyriders 2.lib" /MACHINE:X86 /SAFESEH Release\App.obj
          Release\JJ2App.obj
          Release\MatrixEntities.obj
          Release\ParticleSystem.obj
+         Release\PerlinNoise.obj
          Generating code
          Finished generating code
-         Jetpack Joyriders 2.vcxproj -> C:\Users\acb\Desktop\Game-Programming-Work\Jetpack Joyriders 2\Release\Jetpack Joyriders 2.exe
-     1>Done Building Project "C:\Users\acb\Desktop\Game-Programming-Work\Jetpack Joyriders 2\Jetpack Joyriders 2\Jetpack Joyriders 2.vcxproj" (Build target(s)).
+         Jetpack Joyriders 2.vcxproj -> C:\Users\acb\Desktop\fff\Jetpack Joyriders 2\Release\Jetpack Joyriders 2.exe
+     1>Done Building Project "C:\Users\acb\Desktop\fff\Jetpack Joyriders 2\Jetpack Joyriders 2\Jetpack Joyriders 2.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.63
+Time Elapsed 00:00:03.11
