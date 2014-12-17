@@ -356,8 +356,8 @@ void App::Init(){
 		Unicorns[i].spriteCountX = 2;
 		Unicorns[i].spriteCountY = 1;
 		Unicorns[i].index = 0;
-		Unicorns[i].height = .2;
-		Unicorns[i].width = .2;
+		Unicorns[i].height = .25;
+		Unicorns[i].width = .25;
 		Unicorns[i].velocity_x = -.01;
 		Unicorns[i].set_x = -RANDOM_NUMBER * 100;
 		Entities.push_back(&Unicorns[i]);
@@ -512,7 +512,7 @@ void App::FixedUpdate(){
 
 	//Coin motion
 	for (int i = 0; i < 10; i++){
-		Coins[i].y += sin(elapsed * 5) / 200 * FIXED_TIMESTEP;
+		Coins[i].y += sin(elapsed * 5) / 60 * FIXED_TIMESTEP;
 		Coins[i].rotation += FIXED_TIMESTEP * 2;
 		//Coin Score
 		if (player.checkCollision(Coins[i]) && Coins[i].checkCollision(player)){
@@ -567,13 +567,13 @@ void App::FixedUpdate(){
 	if (spawnUni) {
 		if (player1hp > 0){
 			if (Unicorns[0].x - player.x > 1.0 / 2 * aspect){
-				Unicorns[0].velocity_x = -0.035;
+				Unicorns[0].velocity_x = -0.055;
 				Unicorns[0].y = player.y + 0.25 * sin(uniSpawnCounter);// +0.5 - 0.25 * i;
 			}
 		}
 		if (player2hp > 0){
 			if (Unicorns[1].x - player2.x > 1.0 / 2 * aspect){
-				Unicorns[1].velocity_x = -0.035;
+				Unicorns[1].velocity_x = -0.055;
 				Unicorns[1].y = player2.y + 0.25 * sin(uniSpawnCounter + 0.5);// +0.5 - 0.25 * i;
 			}
 		}
