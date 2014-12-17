@@ -209,7 +209,7 @@ void App::Init(){
 		Snakes[i].y = -.825 -.025*i ;
 		Snakes[i].x = 5;
 		Snakes[i].rotation = 0;
-		Snakes[i].velocity_x = -0.005 + (-.003*RANDOM_NUMBER);
+		Snakes[i].velocity_x = -0.01 + (-.01*RANDOM_NUMBER);
 		Snakes[i].velocity_y = .05;
 		if (i % 2 == 0){
 			Snakes[i].scale_x = -1;
@@ -225,7 +225,7 @@ void App::Init(){
 	}
 	snakescurrentindex = 0;
 	//Bullets
-	totalbullets = 8;
+	totalbullets = 16;
 	SpriteSheetTextureID = LoadTexture("Arrows.png");
 	for (int i = 0; i < totalbullets; i++){
 		bullets[i].textureID = SpriteSheetTextureID;
@@ -258,8 +258,8 @@ void App::Init(){
 	}
 
 	//Coins
-	SpriteSheetTextureID = LoadTexture("Coin.png");
-	for (int i = 0; i < 5; i++){
+	SpriteSheetTextureID = LoadTexture("purplecoin.png");
+	for (int i = 0; i < 10; i++){
 		Coins[i].textureID = SpriteSheetTextureID;
 		Coins[i].spriteCountX = 4;
 		Coins[i].spriteCountY = 1;
@@ -267,7 +267,7 @@ void App::Init(){
 		Coins[i].height = .125;
 		Coins[i].width = .2;
 		Coins[i].x = -1.5;
-		Coins[i].velocity_x = -0.01;
+		Coins[i].velocity_x = -0.02;
 		Coins[i].set_x = -RANDOM_NUMBER * 100;
 		Coins[i].acceleration_x = 0;
 		Coins[i].rotation = 0;
@@ -438,7 +438,7 @@ void App::FixedUpdate(){
 
 
 	//Coin motion
-	for (int i = 0; i < 5; i++){
+	for (int i = 0; i < 10; i++){
 		Coins[i].y += sin(elapsed*5)/200*FIXED_TIMESTEP;
 		Coins[i].rotation += FIXED_TIMESTEP * 2;
 		//Coin Score
@@ -452,6 +452,7 @@ void App::FixedUpdate(){
 			if (Coins[i].visible){
 				coinsCollected2++;
 			}
+			Coins[i].visible = false;
 		}
 	}
 
@@ -765,7 +766,7 @@ void App::updateGameLevel(){
 	//Snake movement, death, and respawn.
 	for (int i = 0; i < 6; i++){
 		if ((Snakes[i].x - player.x) < .6 && (player.collideBot||player2.collideBot)){
-			Snakes[i].velocity_x = -.003 - (0.001*actualElapsed);
+			//Snakes[i].velocity_x = -.005 - (0.001*actualElapsed);
 			Snakes[i].scale_x = 1;
 		}
 		if (timer2 > .2) {
@@ -796,16 +797,16 @@ void App::updateGameLevel(){
 		if (Snakes[i].collideLeft){
 			Snakes[i].velocity_x = .002;
 			Snakes[i].y += Snakes[i].velocity_y*FIXED_TIMESTEP;
-			Snakes[i].velocity_y += gravity_y*FIXED_TIMESTEP;
+			Snakes[i].velocity_y += gravity_y * 2 * FIXED_TIMESTEP;
 			Snakes[i].rotation += 10 * FIXED_TIMESTEP;
 		}
 	}
 	//Speed increase
 	for (int i = 2; i < Entities.size(); i++){
-		Entities[i]->velocity_x += (-.0002*actualElapsed);
+		Entities[i]->velocity_x += (-.001*actualElapsed);
 	}
 	for (int i = 0; i < floor.size(); i++){
-		floor[i]->velocity_x += (-.0001*actualElapsed);
+		floor[i]->velocity_x += (-.0005*actualElapsed);
 	}
 	//Particles
 	playerParticles.Update(timeLeftOver);
@@ -817,7 +818,12 @@ void App::updateGameLevel(){
 			if (bullettimers[i] <= 2.5){
 				float animationValue = mapValue(bullettimers[i], 0, 300, 0.0f, 1.0);
 				bulletindicators[i].y = bulletindicators[i].set_y;
-				bulletindicators[i].set_y = lerp(bulletindicators[i].y, player.y, animationValue);
+				if (i % 2 == 0){
+					bulletindicators[i].set_y = lerp(bulletindicators[i].y, player.y, animationValue);
+				}
+				else{
+					bulletindicators[i].set_y = lerp(bulletindicators[i].y, player2.y, animationValue);
+				}
 			}
 			else
 			{
@@ -867,7 +873,7 @@ void App::updateGameLevel(){
 		}
 	}
 	//Coin Animation and Movement
-	for (int i = 0; i < 5; i++){
+	for (int i = 0; i < 10; i++){
 		cointimer[i] += actualElapsed;
 		if (cointimer[i] > .2){
 			cointimer[i] = 0;

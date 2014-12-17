@@ -85,15 +85,15 @@ public:
 
 	int totalbullets;
 	vector<Entity*> bulletmech;
-	Entity bulletindicators[8];
-	Entity bullets[8];
-	float bullettimers[8];
-	float bulletanimationtimers[8];
-	float indanimationtimer[8];
-	unsigned int bulletindex[8];
+	Entity bulletindicators[16];
+	Entity bullets[16];
+	float bullettimers[16];
+	float bulletanimationtimers[16];
+	float indanimationtimer[16];
+	unsigned int bulletindex[16];
 
-	Entity Coins[5];
-	float cointimer[5];
+	Entity Coins[10];
+	float cointimer[10];
 	int coinsCollected;
 	int coinsCollected2;
 

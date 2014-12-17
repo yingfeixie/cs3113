@@ -1,4 +1,4 @@
-﻿Build started 12/16/2014 7:45:19 PM.
+﻿Build started 12/16/2014 8:28:28 PM.
      1>Project "C:\Users\Master\Source\Repos\cs3113\Jetpack Joyriders 2\Jetpack Joyriders 2\Jetpack Joyriders 2.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\SDL2_mixer\include /IC:\SDL2\include /IC:\SDL2_image\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt App.cpp
@@ -59,51 +59,50 @@
      1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(433): warning C4305: '=' : truncation from 'double' to 'float'
      1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(442): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
      1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(443): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(460): warning C4305: 'argument' : truncation from 'double' to 'float'
      1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(461): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(483): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(502): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(598): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(599): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(603): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(636): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(650): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(685): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(696): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(700): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(711): warning C4010: single-line comment contains line-continuation character
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(723): warning C4305: '=' : truncation from 'double' to 'float'
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(726): warning C4305: '-=' : truncation from 'double' to 'float'
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(758): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(462): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(484): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(503): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(599): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(600): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(604): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(637): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(651): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(686): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(697): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(701): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(712): warning C4010: single-line comment contains line-continuation character
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(724): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(727): warning C4305: '-=' : truncation from 'double' to 'float'
      1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(759): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(762): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(760): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
      1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(763): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(768): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(782): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(784): warning C4305: '=' : truncation from 'double' to 'float'
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(787): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(791): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(797): warning C4305: '=' : truncation from 'double' to 'float'
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(798): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(764): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(783): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(785): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(788): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(792): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(798): warning C4305: '=' : truncation from 'double' to 'float'
      1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(799): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(800): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(804): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(805): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(807): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(808): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(828): warning C4305: '=' : truncation from 'double' to 'float'
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(888): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(899): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(947): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(948): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(975): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(1042): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(1051): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(1055): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(1062): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(1063): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(1066): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(800): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(801): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(805): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(806): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(808): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(809): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(834): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(894): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(905): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(953): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(954): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(981): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(1048): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(1057): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(1061): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(1068): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(1069): warning C4305: 'initializing' : truncation from 'double' to 'float'
      1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(1072): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\master\source\repos\cs3113\jetpack joyriders 2\jetpack joyriders 2\app.cpp(1078): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Master\Source\Repos\cs3113\Jetpack Joyriders 2\Debug\Jetpack Joyriders 2.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\SDL2\lib\x86 /LIBPATH:C:\SDL2_mixer\lib\x86 /LIBPATH:C:\SDL2_image\lib\x86 SDL2.lib SDL2main.lib SDL2_image.lib OpenGL32.lib SDL2_mixer.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Master\Source\Repos\cs3113\Jetpack Joyriders 2\Debug\Jetpack Joyriders 2.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Master\Source\Repos\cs3113\Jetpack Joyriders 2\Debug\Jetpack Joyriders 2.lib" /MACHINE:X86 Debug\App.obj
          Debug\JJ2App.obj
@@ -115,4 +114,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.01
+Time Elapsed 00:00:01.26
