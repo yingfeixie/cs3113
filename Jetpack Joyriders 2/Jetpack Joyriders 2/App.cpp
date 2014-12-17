@@ -567,13 +567,13 @@ void App::FixedUpdate(){
 	if (spawnUni) {
 		if (player1hp > 0){
 			if (Unicorns[0].x - player.x > 1.0 / 2 * aspect){
-				Unicorns[0].velocity_x = -0.055;
+				Unicorns[0].velocity_x = -0.035;
 				Unicorns[0].y = player.y + 0.25 * sin(uniSpawnCounter);// +0.5 - 0.25 * i;
 			}
 		}
 		if (player2hp > 0){
 			if (Unicorns[1].x - player2.x > 1.0 / 2 * aspect){
-				Unicorns[1].velocity_x = -0.055;
+				Unicorns[1].velocity_x = -0.035;
 				Unicorns[1].y = player2.y + 0.25 * sin(uniSpawnCounter + 0.5);// +0.5 - 0.25 * i;
 			}
 		}
@@ -1029,6 +1029,7 @@ void App::updateGameLevel(){
 	if (!invincible) {
 		if (player.gothit && p1hitCooldown > 1000.0) {
 			if (player1hp > 0) player1hp--;
+			cout << player1hp << endl;
 			p1hitCooldown = 0;
 		}
 		if (player2.gothit && p2hitCooldown > 1000.0) {
@@ -1288,6 +1289,8 @@ void App::renderGameLevel(){
 	glLoadIdentity();
 	if (player.gothit || player2.gothit){
 		screenShake();
+		p1hitCooldown = 0;
+		p1hitCooldown = 0;
 	}
 	if (player1hp <= 0 && player2hp <= 0) {
 	fadeOut();
