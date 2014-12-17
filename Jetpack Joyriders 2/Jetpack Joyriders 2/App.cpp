@@ -292,8 +292,8 @@ void App::Init(){
 		Coins[i].height = .125;
 		Coins[i].width = .2;
 		Coins[i].x = -1.5;
-		Coins[i].velocity_x = -0.02;
-		Coins[i].set_x = -RANDOM_NUMBER * 100;
+		Coins[i].velocity_x = -0.1;
+		Coins[i].set_x = -RANDOM_NUMBER * 200;
 		Coins[i].acceleration_x = 0;
 		Coins[i].rotation = 0;
 		Coins[i].visible = true;
@@ -535,8 +535,8 @@ void App::FixedUpdate(){
 
 
 
-	player.velocity_y = lerp(player.velocity_y, 0.0f, FIXED_TIMESTEP*.025);
-	player2.velocity_y = lerp(player2.velocity_y, 0.0f, FIXED_TIMESTEP*.025);
+	player.velocity_y = lerp(player.velocity_y, 0.0f, FIXED_TIMESTEP*.015);
+	player2.velocity_y = lerp(player2.velocity_y, 0.0f, FIXED_TIMESTEP*0.015);
 	for (int i = 0; i < 2; i++) {
 		if (Unicorns[i].x < -1.5 * aspect){
 			Unicorns[i].x = 2* aspect;
@@ -903,7 +903,7 @@ void App::updateGameLevel(){
 		}
 	}
 	//Speed increase
-	for (int i = 2; i < Entities.size(); i++){
+	for (int i = 2; i < Entities.size()-2; i++){
 		Entities[i]->velocity_x += (-.001*actualElapsed);
 	}
 	for (int i = 0; i < floor.size(); i++){
@@ -941,7 +941,7 @@ void App::updateGameLevel(){
 				bullets[i].x = 2.5;
 				bullets[i].y = bulletindicators[i].set_y;
 				bulletindicators[i].collideTop = false;
-				bullets[i].velocity_x = -0.1;
+				bullets[i].velocity_x = -0.15;
 				bullets[i].visible = true;
 				bulletindicators[i].index = 1;
 			}
@@ -995,13 +995,14 @@ void App::updateGameLevel(){
 		if (Coins[i].x < Coins[i].set_x){
 			Coins[i].x = 2;
 			Coins[i].y = -0.75f + RANDOM_NUMBER*1.5f;
+			Coins[i].velocity_x = -0.1;
 			Coins[i].visible = true;
 		}
 
 	}
 	//Background move
 	//for (int i = 1; i < 4; i++){
-	Background[1].set_x += (-.0001*actualElapsed);
+	Background[1].set_x += (-.0005*actualElapsed);
 	//	Background[i].x += Background[i].set_x*FIXED_TIMESTEP*10;
 	//	//cout << Background[i].set_x << endl;
 	//	cout << Background[i].x << endl;
@@ -1047,7 +1048,12 @@ void App::updateGameLevel(){
 		}
 	}
 	
-
+	if (player.x < -aspect){
+		player1hp = 0;
+	}
+	if (player2.x < -aspect){
+		player2hp = 0;
+	}
 
 	/*if (player.gothit || player2.gothit){
 		player1hp--;
@@ -1102,6 +1108,8 @@ void App::updateGameOver(){
 					player2.x = -0.85f;
 					coinsCollected2 = 0;
 					actualElapsed = 0;
+					elapsed = 0;
+					delay = 0;
 					frameAlpha = 0;
 					invincible = true;
 					invincibleTimer = 3;
