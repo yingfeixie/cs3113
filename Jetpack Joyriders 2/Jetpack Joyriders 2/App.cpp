@@ -225,7 +225,7 @@ void App::Init(){
 	playerParticles.position.x = -.85f;
 	//Wandering background stuff
 	for (int i = 0; i < 4; i++){
-		Snakes[i].textureID = LoadTexture("Knight2.0.png");
+		Snakes[i].textureID = LoadTexture("Knight.png");
 		Snakes[i].spriteCountX = 3;
 		Snakes[i].spriteCountY = 1;
 		Snakes[i].index = 0;
@@ -245,6 +245,7 @@ void App::Init(){
 		Entities.push_back(&Snakes[i]);
 	}
 	//Background animation for Snakes
+	numFrames = 3;
 	for (int i = 0; i < 3; i++){
 		saIndex[i] = i;
 	}
