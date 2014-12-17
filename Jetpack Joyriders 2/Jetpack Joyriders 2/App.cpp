@@ -919,12 +919,21 @@ void App::updateGameLevel(){
 			if (bullettimers[i] <= 2.5){
 				float animationValue = mapValue(bullettimers[i], 0, 300, 0.0f, 1.0);
 				bulletindicators[i].y = bulletindicators[i].set_y;
-				if (i % 2 == 0){
+				if (player1hp > 0 && player2hp > 0){
+					if (i % 2 == 0){
+						bulletindicators[i].set_y = lerp(bulletindicators[i].y, player.y, animationValue);
+					}
+					else{
+						bulletindicators[i].set_y = lerp(bulletindicators[i].y, player2.y, animationValue);
+					}
+				}
+				else if (player1hp > 0){
 					bulletindicators[i].set_y = lerp(bulletindicators[i].y, player.y, animationValue);
 				}
-				else{
+				else if (player2hp > 0){
 					bulletindicators[i].set_y = lerp(bulletindicators[i].y, player2.y, animationValue);
 				}
+				
 			}
 			else
 			{
